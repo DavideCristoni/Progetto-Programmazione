@@ -5,7 +5,7 @@
 #include <iostream>
 
 using namespace std;
-
+ 
 int main() {
 	char in;
 	in = _getch();
