@@ -111,20 +111,12 @@ class fosso:public oggetto
 class mappa
 {
     protected:
-        struct batterie
+        struct oggetti
         {
-            batteria val;
-            batterie *next;
+            oggetto val;
+            oggetti *next;
         };
-        struct fossi
-        {
-            fosso val;
-            fossi *next;
-        };
-        
-        batterie* bat = NULL;
-        fossi* fos = NULL;
-
+        oggetti *lista = NULL;
         public:
             mappa()
             {
