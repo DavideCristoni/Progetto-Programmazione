@@ -1,6 +1,8 @@
 #include <unistd.h>
 #include <ncurses.h>
 #include <time.h>
+#include <cstring>
+#include <cstdlib>
 
 void stampa_oggetto(int &posx, int &posy);
 void stampa_strada(int flag);

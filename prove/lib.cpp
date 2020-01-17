@@ -2,15 +2,16 @@
 
 void inizializza()
 {
+    //system("tilix --geometry=10x100");
     nodelay(stdscr, TRUE);
     initscr(); //Crea lo schermo
     start_color();
     nodelay(stdscr, TRUE);
     noecho();  //Impostazione per evitare la stampa di ciò che è premuto sulla tastiera
     curs_set(0);
-    init_pair(1, COLOR_BLACK, COLOR_WHITE);
-    init_pair(2, COLOR_GREEN, COLOR_BLACK);
-    init_pair(3, COLOR_RED, COLOR_BLACK);
+    init_pair(1, COLOR_GREEN, COLOR_BLACK);
+    init_pair(2, COLOR_RED, COLOR_BLACK);
+    init_pair(3, COLOR_BLACK, COLOR_WHITE);
     init_pair(4, COLOR_YELLOW, COLOR_BLACK);
     //bkgd(COLOR_PAIR(1));
 }
