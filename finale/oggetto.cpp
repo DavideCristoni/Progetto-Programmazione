@@ -55,3 +55,18 @@ using namespace std;
 			enable = false;
 		}
 	}
+
+	int oggetto::getPosX()
+	{
+		return posx;
+	}
+
+	int oggetto::getGloalY()
+	{
+		return globaly;
+	}
+
+	int oggetto::getType()
+	{
+		return type;
+	}

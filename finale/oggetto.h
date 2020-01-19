@@ -27,6 +27,12 @@ public:
 
 	void effect(int& score, int& battery);
 
+	int getPosX();
+
+	int getGloalY();
+
+	int getType();
+
 };
 
 struct lista {
