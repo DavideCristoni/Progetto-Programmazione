@@ -6,6 +6,6 @@
 using namespace std;
 
 
-void spawn(listpntr);
+void item_creator(listpntr);
 
 void lista_oggetti(listpntr, int, int, int);
