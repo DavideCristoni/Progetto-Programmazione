@@ -2,6 +2,7 @@
 #include<time.h>
 #include<stdlib.h>
 #include"libreria.h"
+#include"oggetto.h"
 
 using namespace std;
 
