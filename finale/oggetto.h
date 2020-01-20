@@ -33,6 +33,14 @@ public:
 
 	int getType();
 
+	int getPosY();
+
+	int getOffsetx();
+
+	int getOffsety();
+
+
+
 };
 
 struct lista {

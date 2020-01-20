@@ -18,13 +18,15 @@ using namespace std;
 		for (int i = 0; i < 10; i++)
 			strcpy(texture[i], txtr[i]);
 	}
+	
 	void oggetto::move()
 	{
 		posy++;
 	}
+	
 	void oggetto::stampa()
 	{
-		cout << "posx: " << posx << ", globaly: " << globaly << ", score: " << score << ", battery: " << battery << " texture:" << endl;
+		cout << "type: " << type << ", posx: " << posx << ", globaly: " << globaly << ", score: " << score << ", battery: " << battery << " texture:" << endl;
 		for (int i = 0; i < offsetY; i++) {
 			for (int j = 0; j < offsetX; j++)
 				cout << texture[i][j];
@@ -47,6 +49,7 @@ using namespace std;
 		attroff(COLOR_PAIR(type));
 		}*/
 	}
+	
 	void oggetto::effect(int& score, int& battery)
 	{
 		if (enable) {
@@ -56,6 +59,7 @@ using namespace std;
 		}
 	}
 
+	
 	int oggetto::getPosX()
 	{
 		return posx;
@@ -69,4 +73,19 @@ using namespace std;
 	int oggetto::getType()
 	{
 		return type;
+	}
+
+	int oggetto::getPosY()
+	{
+		return posy;
+	}
+
+	int oggetto::getOffsetx() 
+	{ 
+		return offsetX; 
+	}
+
+	int oggetto::getOffsety() 
+	{ 
+		return offsetY; 
 	}
