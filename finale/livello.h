@@ -31,6 +31,7 @@ public:
 	listpntr objListGenerator(char l[]); //genera la lista di oggetti a partire dalla stringa letta su file
 
 	void arrayInsert(char a[], char c, int& cursore); //inserisce nell'array un char e porta avanti il cursore
+	
 	void arrayInsert(char a[], int n, int& cursore); //inserisce nell'array un char e porta avanti il cursore
 
 	void livStringGeneator(char c[]); //traduce la lista livellogenerata nella stringa a stampare su file
@@ -40,6 +41,10 @@ public:
 	int getLivAtt(); //ritorna il livello attualmente caricato
 
 	int getLivMax(); //ritorna il livello massimo generato
+
+	listpntr generaMappa();
+
+	listpntr push(listpntr l1, listpntr l2);
 
 };
 

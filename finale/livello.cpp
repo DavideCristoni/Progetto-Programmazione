@@ -1,6 +1,8 @@
 #include "livello.h"
-#include "libreria.h"
+
 #include <iostream>
+#include <time.h>
+
 	//sostituire quel mostro di interpretazione per usare effettivamente la formattazione di fscanf e fprintf
 
 	livello::livello() {
@@ -149,6 +151,37 @@
 	int livello::getLivMax()
 	{
 		return livMax;
+	}
+
+	listpntr livello::generaMappa()
+	{
+		int nObj, i = 0;
+		int posx, posy, globy, type;
+		listpntr l1 = NULL;
+		listpntr l2 = NULL;
+		srand(time(NULL));
+		nObj = 100;
+		while (i < nObj)
+		{
+
+			posy = 0;
+			type = (rand() % 2) + 1;
+			posx = (rand() % (50)) + 2;
+			if (type == 2)
+				posx = posx - 3;
+			globy = (rand() % 700) + 70;
+			l2 = new lista;
+			l2->val = objGenerator(type, posx, globy);
+			l1 = push(l1, l2);
+			i++;
+		}
+		return l1;
+	}
+
+	listpntr livello::push(listpntr l1, listpntr l2)
+	{
+		l2->next = l1;
+		return l2;
 	}
 
 	void livello::arrayInsert(char a[], char c, int &cursore) {
