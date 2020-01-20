@@ -3,7 +3,7 @@
 
 using namespace std;
 
-	oggetto::oggetto(int type, int x, int y, int offx, int offy, int score, const int battery, const char txtr[10][10], bool disappear)
+	oggetto::oggetto(int type, int x, int y, int offx, int offy, int score, const double battery, const char txtr[10][10], bool disappear)
 	{
 		this->type = type;
 		posx = x;
