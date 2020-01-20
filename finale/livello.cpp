@@ -4,7 +4,7 @@
 	//sostituire quel mostro di interpretazione per usare effettivamente la formattazione di fscanf e fprintf
 
 	livello::livello() {
-		file = fopen("mappa.txt", "w+");
+		file = fopen(nomefile, "w+");
 		if (file == NULL)
 			exit(1);
 		livAtt = 1;
@@ -47,10 +47,9 @@
 	}
 
 	listpntr livello::caricaLivello() { //legge i livello di numero livAtt
-		char c[500];
+		char c[1000];
 		rewind(file);
 		fscanf(file, "%s", c);
-		std::cout << atoi(c)<<" "<< livAtt;
 		while (atoi(c) != livAtt)
 			fscanf(file, "%s", c);
 		return objListGenerator(c);
