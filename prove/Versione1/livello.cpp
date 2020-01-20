@@ -1,0 +1,209 @@
+#include "livello.h"
+#include <ncurses.h>
+#include <iostream>
+#include <time.h>
+
+	//sostituire quel mostro di interpretazione per usare effettivamente la formattazione di fscanf e fprintf
+
+	livello::livello() {
+		file = fopen(nomefile, "w+");
+		if (file == NULL)
+			exit(1);
+		livAtt = 1;
+		livMax = 1;
+		liv = generaLivello(); // comprende anche la salvaLivello;
+	}
+
+	void livello::chiudi()
+	{
+		liv = cancellaLivello();
+		fclose(file);
+	}
+
+	listpntr livello::cancellaLivello() { //libera la lista livello
+		while (liv != NULL) {
+			listpntr temp=liv;
+			liv = liv->next;
+			delete temp->val; //cancella l'oggetto
+			delete temp;	//cancella la struct lista di oggetti;
+		}
+		return NULL;
+	}
+
+	listpntr livello::livelloSuccessivo() { //carica o genera e carica il livelo successivo
+		livAtt++;
+		if (livAtt > livMax) {
+			livMax = livAtt;
+			cancellaLivello();
+			return generaLivello();
+		}
+		else {
+			cancellaLivello();
+			return caricaLivello();
+		}
+	} 
+
+	listpntr livello::livelloPrecedente() { //carica il livello precedente, se non esiste restituisce NULL
+		livAtt--;
+		if (livAtt == 0) {
+			return NULL;
+		}
+		else {
+			cancellaLivello();
+			return caricaLivello();
+		}
+	}
+
+	listpntr livello::caricaLivello() { //legge i livello di numero livAtt
+		char c[1000];
+		rewind(file);
+		fscanf(file, "%s", c);
+		while (atoi(c) != livAtt)
+			fscanf(file, "%s", c);
+		return objListGenerator(c);
+	}
+
+	listpntr livello::generaLivello(){  //genera livello con difficolta livMax
+		liv = generaMappa();
+		char c[1000];
+		livStringGeneator(c);
+		fprintf(file, "%s\n", c);
+		return liv;
+	}
+
+	oggetto* livello::objGenerator(int type, int posx, int globaly) { //crea l'oggetto di codice type e ne restituisce il puntatore
+		oggetto* ris;
+		if (type == 1) { //batteria
+			ris = new oggetto(type, posx, globaly, 1, 1, 0, BATTERY, BATTERYTXTR, true);
+			return ris;
+		}
+		else /*if (type == 2)*/ { //buca
+			ris = new oggetto(type, posx, globaly, 4, 3, BUCA, 0, BUCATXTR, false);
+			return ris;
+		}
+	}
+
+	int livello::leggiIntArray(char source[], char car, int& cont) { //scorre l'array fino a un certo carattere e ne restituisce l'intero che compariva prima
+		int i = 0;
+		char temp[10];
+		while (source[cont] != car) {
+			temp[i] = source[cont];
+			i++;
+			cont++;
+		}
+		cont++;
+		return atoi(temp);
+	}
+
+	listpntr livello::objListGenerator(char l[]) { //dato ciòche legge nel file, genera la lista di oggetti e la restituisce
+		int liv, nobj;
+		int c = 0;
+		listpntr ris = NULL;
+		listpntr punt = NULL;
+		liv = leggiIntArray(l, '_', c);			//legge quale livello è
+		nobj = leggiIntArray(l, ':', c);		//legge qanti oggetti sono prsenti nel livello
+		for (int i = 0; i < nobj; i++) {
+			int obj = leggiIntArray(l, '@', c);	//legge il codice dell'oggetto
+			int posx = leggiIntArray(l, '|', c);//legge la posizione x dell'oggetto
+			int globaly = leggiIntArray(l, '#', c);//legge la posizione x dell'oggetto
+			if (punt == NULL) {
+				ris = new lista;
+				punt = ris;
+				punt->val = objGenerator(obj, posx, globaly);
+				mvprintw(i, 10, "%d %d %d ciao", obj, posx, globaly);
+				punt->next = NULL;
+			}
+			else {
+				punt->next = new lista;
+				punt = punt->next;
+				punt->val = objGenerator(obj, posx, globaly);
+				mvprintw(i, 0, "%d %d %d", obj, posx, globaly);
+				punt->next = NULL;
+			}
+		}
+		return ris;
+	}
+
+	void livello::livStringGeneator(char c[]) { //traduce l'attribuo lista livello in una stringa da stampare in file
+		int cursore = 0, nobj=0;
+		arrayInsert(c, livMax, cursore);
+		arrayInsert(c, '_', cursore);
+		arrayInsert(c, 100, cursore);
+		arrayInsert(c, ':', cursore);
+		listpntr temp = liv;
+		while (temp != NULL) {
+			oggetto* obj = temp->val;
+			arrayInsert(c, obj->getType(), cursore);
+			arrayInsert(c, '@', cursore);
+			arrayInsert(c, obj->getPosX(), cursore);
+			arrayInsert(c, '|', cursore);
+			arrayInsert(c, obj->getGloalY(), cursore);
+			arrayInsert(c, '#', cursore);
+			nobj++;
+			temp = temp->next;
+		}
+		c[cursore] = '\0';
+		//c[2] = nobj;
+	}
+
+	listpntr livello::getLiv()
+	{
+		return liv;
+	}
+
+	int livello::getLivAtt()
+	{
+		return livAtt;
+	}
+
+	int livello::getLivMax()
+	{
+		return livMax;
+	}
+
+	listpntr livello::generaMappa()
+	{
+		int nObj, i = 0;
+		int posx, posy, globy, type;
+		listpntr l1 = NULL;
+		listpntr l2 = NULL;
+		srand(time(NULL));
+		nObj = 100;
+		while (i < nObj)
+		{
+
+			posy = 0;
+			type = (rand() % 2) + 1;
+			posx = (rand() % (50)) + 2;
+			if (type == 2)
+				posx = posx - 3;
+			globy = (rand() % 700) + 70;
+			l2 = new lista;
+			l2->val = objGenerator(type, posx, globy);
+			l1 = push(l1, l2);
+			i++;
+		}
+		return l1;
+	}
+
+	listpntr livello::push(listpntr l1, listpntr l2)
+	{
+		l2->next = l1;
+		return l2;
+	}
+
+	void livello::arrayInsert(char a[], char c, int &cursore) {
+		a[cursore] = c;
+		cursore++;
+	}
+
+	void livello::arrayInsert(char a[], int n, int& cursore) {
+		char temp[10];
+		sprintf(temp, "%d", n);
+		int i = 0;
+		while (temp[i] != '\0') {
+			a[cursore] = temp[i];
+			cursore++; 
+			i++;
+		}
+	}
