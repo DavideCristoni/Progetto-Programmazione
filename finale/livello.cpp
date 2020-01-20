@@ -1,4 +1,5 @@
 #include "livello.h"
+
 #include <iostream>
 #include <time.h>
 
@@ -13,12 +14,18 @@
 		liv = generaLivello(); // comprende anche la salvaLivello;
 	}
 
+	void livello::chiudi()
+	{
+		liv = cancellaLivello();
+		fclose(file);
+	}
+
 	listpntr livello::cancellaLivello() { //libera la lista livello
 		while (liv != NULL) {
 			listpntr temp=liv;
 			liv = liv->next;
-			delete temp->val;
-			delete temp;
+			delete temp->val; //cancella l'oggetto
+			delete temp;	//cancella la struct lista di oggetti;
 		}
 		return NULL;
 	}
@@ -88,12 +95,12 @@
 		return atoi(temp);
 	}
 
-	listpntr livello::objListGenerator(char l[]) { //dato ciÃ²che legge nel file, genera la lista di oggetti e la restituisce
+	listpntr livello::objListGenerator(char l[]) { //dato ciòche legge nel file, genera la lista di oggetti e la restituisce
 		int liv, nobj;
 		int c = 0;
 		listpntr ris = NULL;
 		listpntr punt = NULL;
-		liv = leggiIntArray(l, '_', c);			//legge quale livello Ã¨
+		liv = leggiIntArray(l, '_', c);			//legge quale livello è
 		nobj = leggiIntArray(l, ':', c);		//legge qanti oggetti sono prsenti nel livello
 		for (int i = 0; i < nobj; i++) {
 			int obj = leggiIntArray(l, '@', c);	//legge il codice dell'oggetto
@@ -190,7 +197,7 @@
 
 	void livello::arrayInsert(char a[], int n, int& cursore) {
 		char temp[10];
-		_itoa(n, temp, 10);
+		sprintf(temp, "%d", n);
 		int i = 0;
 		while (temp[i] != '\0') {
 			a[cursore] = temp[i];
