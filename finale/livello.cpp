@@ -1,5 +1,4 @@
 #include "livello.h"
-
 #include <iostream>
 #include <time.h>
 
@@ -89,12 +88,12 @@
 		return atoi(temp);
 	}
 
-	listpntr livello::objListGenerator(char l[]) { //dato ciòche legge nel file, genera la lista di oggetti e la restituisce
+	listpntr livello::objListGenerator(char l[]) { //dato ciÃ²che legge nel file, genera la lista di oggetti e la restituisce
 		int liv, nobj;
 		int c = 0;
 		listpntr ris = NULL;
 		listpntr punt = NULL;
-		liv = leggiIntArray(l, '_', c);			//legge quale livello è
+		liv = leggiIntArray(l, '_', c);			//legge quale livello Ã¨
 		nobj = leggiIntArray(l, ':', c);		//legge qanti oggetti sono prsenti nel livello
 		for (int i = 0; i < nobj; i++) {
 			int obj = leggiIntArray(l, '@', c);	//legge il codice dell'oggetto
