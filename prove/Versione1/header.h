@@ -3,7 +3,6 @@
 #include <time.h>
 #include <cstring>
 #include <cstdlib>
-#define OFFSET_MENU 30
 
 void stampa_oggetto(int &posx, int &posy);
 void stampa_strada(int flag);
