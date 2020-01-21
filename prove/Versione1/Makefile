@@ -15,3 +15,9 @@ livello.o: livello.cpp livello.h
 
 mappa.o: mappa.cpp mappa.h
 	g++ -c mappa.cpp
+
+clean:
+	rm -f *.o
+
+avvio: 
+	tilix --geometry=72x34 --command=./NeedForCerignola
