@@ -121,18 +121,24 @@ class gioco
         mappa *genera_mappa()
         {
             mappa *m1;
+            int limit;
+            if(lvl == 1)
+                limit = 0;
+            else
+                limit = (initialGoal + (lvl - 1) * MOLT_LIV);
+
             if (azione == 1)
             {
-                m1 = new mappa(l->getLiv(), 1000);
+                m1 = new mappa(l->getLiv(), initialGoal + (lvl * MOLT_LIV), limit);
             }
             else if(azione == 2)
             {
-                m1 = new mappa(l->livelloSuccessivo(), 1000);
+                m1 = new mappa(l->livelloSuccessivo(), initialGoal + (lvl * MOLT_LIV), limit);
                 
             }
             else
             {
-                m1 = new mappa(l->livelloPrecedente(), 1000);
+                m1 = new mappa(l->livelloPrecedente(), initialGoal + (lvl * MOLT_LIV), limit);
                 //mvprintw(3, 0, "%p", l->getLiv());
             }
 
@@ -142,6 +148,12 @@ class gioco
         {
             return battery <= 0;
         }
+
+       /* bool check_restart(mappa *m, int globy)
+        {
+            return globy < m->getL();
+        }
+        */
         void stampa_game_over()
         {
             attron(COLOR_PAIR(3));
@@ -156,25 +168,72 @@ class gioco
             int notSel = 4;
             int s1 = sel;
             int s2 = notSel;
-            int tmp;
+            int s3 = notSel;
+            int selezionato = 0;
             inizializza();
             while(c != 13)
             {
                 clear();
                 mvprintw(0 + 10, COLS / 2 - 10, "NEED FOR SPEED");
                 mvprintw(1 + 10, COLS / 2 - 10, "CERIGNOLA EDITION");
-                if(c == 'w' || c == 's')
+                if(c == 's' )
                 {
-                    tmp = s1;
-                    s1 = s2;
-                    s2 = tmp;
+                    selezionato = (selezionato + 1) % 3;
+                    if(selezionato == 0)
+                    {
+                        s1 = sel;
+                        s2 = notSel;
+                        s3 = notSel;
+                    }
+                    else if(selezionato == 1)
+                    {
+                        s1 = notSel;
+                        s2 = sel;
+                        s3 = notSel;
+                    }
+                    else if(selezionato == 2)
+                    {
+                        s1 = notSel;
+                        s2 = notSel;
+                        s3 = sel; 
+                    }
+                }
+                if(c == 'w')
+                {
+                    selezionato = (selezionato - 1);
+                    if (selezionato < 0)
+                    {
+                        selezionato = 2;
+                    }
+
+                    if(selezionato == 0)
+                    {
+                        s3 = notSel;
+                        s1 = sel;
+                        s2 = notSel;
+                    }
+                    else if(selezionato == 1)
+                    {
+                        s1 = notSel;
+                        s2 = sel;
+                        s3 = notSel;
+                    }
+                    else if(selezionato == 2)
+                    {
+                        s1 = notSel;
+                        s2 = notSel; 
+                        s3 = sel;
+                    }
                 }
                 attron(COLOR_PAIR(s1));
-                mvprintw(LINES / 2 - 1, COLS / 2 - 10, "START");
+                mvprintw(LINES / 2 - 2, COLS / 2 - 10, "START");
                 attroff(COLOR_PAIR(s1));
                 attron(COLOR_PAIR(s2));
-                mvprintw(LINES / 2 , COLS / 2 - 10, "ESCI");
+                mvprintw(LINES / 2 - 1 , COLS / 2 - 10, "ISTRUZIONI");
                 attroff(COLOR_PAIR(s2));
+                attron(COLOR_PAIR(s3));
+                mvprintw(LINES / 2 , COLS / 2 - 10, "ESCI");
+                attroff(COLOR_PAIR(s3));
                 
                 mvprintw(LINES - 6, 0, "COMANDI:");
                 mvprintw(LINES - 5, 0, "W:Avanti\nS:Indietro\nA:Sinistra\nD:Destra");
@@ -184,9 +243,14 @@ class gioco
                 refresh();
                 c = getchar();
             }
-            if(s1 == sel)
+            if(selezionato == 0)
             {
                 load_level();
+            }
+            else if(selezionato == 1)
+            {
+                stampa_istruzioni();
+                start_menu();
             }
             else
             {
@@ -246,8 +310,8 @@ class gioco
             {
                 m = genera_mappa();
                 char c = 'a';
-                reset();
                 start(m);
+                reset();
                 delete(m);
                 if(lvl == 0)
                     {
@@ -265,8 +329,27 @@ class gioco
         }
         void reset()
         {
-            score = 0;
+            score = (initialGoal + ((lvl - 1) * MOLT_LIV));
+            if(lvl == 1)
+                score = 0;
             battery = 100;
+        }
+        void stampa_istruzioni()
+        {
+            char c = 'a';
+                clear();
+                mvprintw(1, 10, "Fino a dove riuscirai a spingerti?");
+                mvprintw(14, 1, "Raggiungi lo score necessario     ---->\n per passare di livello!!!");
+                mvprintw(17, 1, "Attenzione alla batteria!!!       ---->");
+                mvprintw(20, 1, "Se scenderai sotto un certo punteggio\n tornerai indietro di livello!!");
+                mvprintw(24, 1, "Se invece non raggiungi lo score necessario\n rimarrai nello stesso");
+                stampa_laterale(50, 1000);
+                refresh();
+            while(c != 13)
+            {
+                c = getchar();
+            }
+            return;
         }
 };
 

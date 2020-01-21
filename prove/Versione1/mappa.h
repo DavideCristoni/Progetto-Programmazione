@@ -10,7 +10,7 @@ class mappa
         int limit;
         listpntr listaOggetti;
         public:
-            mappa(listpntr l1, int goal);
+            mappa(listpntr l1, int goal, int lim);
             void checkCollision(int &score, double &battery, player p1);
             void move(int globy);
             void stampa(int globy);

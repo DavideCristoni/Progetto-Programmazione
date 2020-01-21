@@ -1,9 +1,9 @@
 #include "mappa.h"
-            mappa::mappa(listpntr l1, int goal)
+            mappa::mappa(listpntr l1, int goal, int lim)
             {
                 listaOggetti = l1;
                 this->goal = goal;
-                limit = -200;
+                limit = lim;
                 listaOggetti = l1;
             }
             void mappa::checkCollision(int &score, double &battery, player p1)
@@ -139,5 +139,5 @@
             }
             bool mappa::check_retrocedi(int score)
             {
-                return score <= limit;
+                return score < limit ;
             }
