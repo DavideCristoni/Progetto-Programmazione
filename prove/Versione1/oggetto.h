@@ -71,7 +71,7 @@ public:
 
 	int getOffsety();
 
-
+	void reset();
 
 };
 
@@ -79,7 +79,6 @@ struct lista {
 	oggetto* val;
 	lista* next;
 };
-
 
 typedef lista* listpntr;
 
