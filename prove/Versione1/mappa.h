@@ -17,4 +17,5 @@ class mappa
             void stampa_strada(int flag);
             bool check_goal(int score);
             bool check_retrocedi(int score);
+            int getGoal();
 };

@@ -264,6 +264,11 @@ class gioco
             int color;
             getmaxyx(stdscr, row, col);
             int prm = (int)(row*0.1);
+            int limit;
+            if(lvl == 1)
+                limit = 0;
+            else   
+                limit = initialGoal + ((lvl-1) * MOLT_LIV);
 
             //Nome del gioco
             mvprintw(prm+1,col-20," NEED FOR ");
@@ -275,7 +280,7 @@ class gioco
 
             //Punteggio Score
             mvprintw((prm*2)+8,col-18,"SCORE:");
-            mvprintw((prm*2)+9,col-18,"%d",score);
+            mvprintw((prm*2)+9,col-24,"%.4d / %.4d / %d", limit,score, initialGoal + ((lvl) * MOLT_LIV));
 
             //Livello batteria
             mvprintw((prm*2)+11,col-18,"ENERGY:");
@@ -294,7 +299,7 @@ class gioco
             else
                 color = 6;
 
-                for(a;a<(prm*3)+24;a++){
+                for(a-=1;a<(prm*3)+24;a++){
                 mvprintw(a,col-16,"|");
                 attron(COLOR_PAIR(color));
                 mvprintw(a,col-15," ");

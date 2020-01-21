@@ -141,3 +141,7 @@
             {
                 return score < limit ;
             }
+            int mappa::getGoal()
+            {
+                return goal;
+            }
