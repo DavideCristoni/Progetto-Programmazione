@@ -4,7 +4,7 @@
                 listaOggetti = l1;
                 this->goal = goal;
                 limit = -200;
-                listaOggetti = NULL;
+                listaOggetti = l1;
             }
             void mappa::checkCollision(int &score, double &battery, player p1)
             {
@@ -59,7 +59,6 @@
                                 {
                                     tmp->val->effect(score, battery);
                                     collisione = true;
-                                    //sleep(2);
                                 }
                     }
                     
