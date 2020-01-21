@@ -8,9 +8,6 @@
 
 using namespace std;
 
-#define OFFSET_MENU 32
-#define COLS 56
-
 int item_creator(listpntr head, int level) {
 	
 	head = new lista;
