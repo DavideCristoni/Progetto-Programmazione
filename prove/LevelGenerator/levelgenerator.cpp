@@ -8,17 +8,16 @@
 
 using namespace std;
 
-
-listpntr item_creator(int level, int &n_obj) {
-	
-	listpntr head = new lista;
-	n_obj = 0;
+int item_creator(listpntr head, int level)
+{	
+	head = new lista;
+	int n_obj = 0;
 	srand(time(NULL));
 	//Numero di corsie larghe 4 caratteri l'una (come la macchina)
 	int ncas = (COLS - OFFSET_MENU - 4) / 4;
 	//vettore che serve per dei controlli che devo ancora implementare
 	int flag[ncas];
-	//variabile per far sÃ¬ che ci sia almeno una corsia vuota
+	//variabile per far sì che ci sia almeno una corsia vuota
 	int last;
 	last = rand() % ncas;
 	for(int k=0; k<ncas; k++)
@@ -28,10 +27,10 @@ listpntr item_creator(int level, int &n_obj) {
 			flag[k]=1;
 		}
 	}
-	//probabilitÃ  batterie e ostacoli
+	//probabilità batterie e ostacoli
 	float per_bat = min(90 + 0.2 * level, 95.0) ;
 	float per_ost = max(80 - 0.2 * level, 50.0) ;
-	//questo for fa sÃ¬ che ogni x caratteri della mappa si creino ostacoli e/o batterie
+	//questo for fa sì che ogni x caratteri della mappa si creino ostacoli e/o batterie
 	for (int j = 20; j < 500; j = j + 10)
 	{
 		//possibile creazione di un oggetto in ogni corsia
@@ -39,10 +38,10 @@ listpntr item_creator(int level, int &n_obj) {
 		{
 			
 			//BATTERIE (1x1)
-			//calcolo della probabilitÃ  di generarsi della batteria (30%)
+			//calcolo della probabilità di generarsi della batteria (30%)
 			if (rand() % 101 >= per_bat)
 			{
-				//i indica la corsia (partendo da 0) quindi moltiplicandola per 4 e sommando 2 abbiamo il carattere esatto della sua x (il +1 Ã¨ per far sÃ¬ che la batteria sia piÃ¹ centrale)
+				//i indica la corsia (partendo da 0) quindi moltiplicandola per 4 e sommando 2 abbiamo il carattere esatto della sua x (il +1 è per far sì che la batteria sia più centrale)
 				head = lista_oggetti(head, 1, i * 4 + 2 + 1, j);
 				flag[i] = 0;
 				n_obj++;
@@ -53,10 +52,10 @@ listpntr item_creator(int level, int &n_obj) {
 				//controllo per non creare buche nella corsia che deve essere libera
 					if(last != i)
 				{
-					//calcolo della probabilitÃ  di generarsi della buca (20%%)
+					//calcolo della probabilità di generarsi della buca (20%%)
 					if (rand() % 101 >= per_ost)
 					{
-						//il rand Ã¨ per la possibile generazione di un auto (2=BUCA 3=AUTO)
+						//il rand è per la possibile generazione di un auto (2=BUCA 3=AUTO)
 						head = lista_oggetti(head, (rand() % 2) + 2, i * 4 + 2, j);
 						flag[i] = 1;
 						n_obj++;
@@ -97,7 +96,7 @@ listpntr item_creator(int level, int &n_obj) {
 			}
 		}
 	}
-	return head;
+	return n_obj;
 }
 
 //funzione di inserimento dell'oggetto generato in lista

@@ -6,10 +6,7 @@
 
 using namespace std;
 
-typedef lista* listpntr;
-
-
-listpntr item_creator(listpntr, int, int &);
+int item_creator(listpntr, int);
 
 listpntr lista_oggetti(listpntr, int, int, int);
 
