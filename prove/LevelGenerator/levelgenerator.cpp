@@ -29,7 +29,7 @@ int item_creator(listpntr head, int level) {
 	}
 	//probabilità batterie e ostacoli
 	float per_bat = min(90 + 0.2 * level, 95.0) ;
-	float per_ost = max(50 + 0.2 * level, 50.0) ;
+	float per_ost = max(80 - 0.2 * level, 50.0) ;
 	//questo for fa sì che ogni x caratteri della mappa si creino ostacoli e/o batterie
 	for (int j = 20; j < 500; j = j + 10)
 	{
