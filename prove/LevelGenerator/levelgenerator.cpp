@@ -8,10 +8,11 @@
 
 using namespace std;
 
-int item_creator(listpntr head, int level) {
+
+listpntr item_creator(int level, int n_obj) {
 	
-	head = new lista;
-	int n_obj = 0;
+	listpntr head = new lista;
+	n_obj = 0;
 	srand(time(NULL));
 	//Numero di corsie larghe 4 caratteri l'una (come la macchina)
 	int ncas = (COLS - OFFSET_MENU - 4) / 4;
@@ -42,11 +43,11 @@ int item_creator(listpntr head, int level) {
 			if (rand() % 101 >= per_bat)
 			{
 				//i indica la corsia (partendo da 0) quindi moltiplicandola per 4 e sommando 2 abbiamo il carattere esatto della sua x (il +1 è per far sì che la batteria sia più centrale)
-				lista_oggetti(head, 1, i * 4 + 2 + 1, j);
+				head = lista_oggetti(head, 1, i * 4 + 2 + 1, j);
 				flag[i] = 0;
 				n_obj++;
 			}
-			//BUCHE (4x3)
+			//BUCHE (4x3) e AUTO
 			else
 			{
 				//controllo per non creare buche nella corsia che deve essere libera
@@ -55,7 +56,8 @@ int item_creator(listpntr head, int level) {
 					//calcolo della probabilità di generarsi della buca (20%%)
 					if (rand() % 101 >= per_ost)
 					{
-						lista_oggetti(head, 2, i * 4 + 2, j);
+						//il rand è per la possibile generazione di un auto (2=BUCA 3=AUTO)
+						head = lista_oggetti(head, (rand() % 2) + 2, i * 4 + 2, j);
 						flag[i] = 1;
 						n_obj++;
 					}
@@ -95,22 +97,25 @@ int item_creator(listpntr head, int level) {
 			}
 		}
 	}
-	return n_obj;
+	return head;
 }
 
 //funzione di inserimento dell'oggetto generato in lista
-void lista_oggetti(listpntr head, int type, int posx, int Globaly) {
+listpntr lista_oggetti(listpntr head, int type, int posx, int Globaly) {
 	srand(time(NULL));
 	if (head != NULL) {
 		listpntr tmp = head;
+		listpntr tmp1;
 		while (tmp->next != NULL) tmp = tmp->next;
-		tmp = new lista;
-		tmp->val = objGenerator(1, posx, Globaly);
-		tmp->next = NULL;
+		tmp1 = new lista;
+		tmp1->val = objGenerator(type, posx, Globaly);
+		tmp1->next = NULL;
+		tmp->next=tmp1;
 	}
 	else {
 		head = new lista;
-		head->val = objGenerator(1, posx, Globaly);
+		head->val = objGenerator(type, posx, Globaly);
 		head->next = NULL;
 	}
 }
+
