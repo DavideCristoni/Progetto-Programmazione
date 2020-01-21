@@ -71,7 +71,7 @@ public:
 
 	int getOffsety();
 
-
+	void reset();
 
 };
 

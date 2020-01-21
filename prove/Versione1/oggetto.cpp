@@ -43,7 +43,6 @@ using namespace std;
 		attroff(COLOR_PAIR(type));
 		}
 	}
-
 	
 	void oggetto::effect(int& score, double& battery)
 	{
@@ -53,8 +52,6 @@ using namespace std;
 			enable = false;
 		}
 	}
-
-
 	
 	int oggetto::getPosX()
 	{
@@ -84,4 +81,9 @@ using namespace std;
 	int oggetto::getOffsety() 
 	{ 
 		return offsetY; 
+	}
+
+	void oggetto::reset(){
+		posy=0;
+		enable=true;
 	}

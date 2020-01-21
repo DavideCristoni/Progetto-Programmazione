@@ -1,6 +1,7 @@
 #include "livello.h"
 #include <time.h>
 
+//implementare il codice di gledis
 
 	livello::livello() {
 		file = fopen(nomefile, "w+");
@@ -170,4 +171,13 @@
 	{
 		l2->next = l1;
 		return l2;
+	}
+
+	listpntr livello::resetLivello(){
+		listpntr temp = liv;
+		while(temp!=NULL){
+			temp->val->reset();
+			temp=temp->next;
+		}
+		return liv;
 	}

@@ -26,6 +26,7 @@ public:
 
 	int getLivMax(); //ritorna il livello massimo generato
 
+	listpntr resetLivello();//resetta lo stato dei vari oggetti
 	
 private:
 
