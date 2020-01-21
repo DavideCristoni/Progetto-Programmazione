@@ -5,11 +5,40 @@
 #include <iostream>
 
 const int BATTERY = 15;
-const char BATTERYTXTR[10][10] = { "B        ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", };
-const int BUCA = 200;
-const char BUCATXTR[10][10] = { "^^^^    ", "^^^^    ", "^^^^    ", "         ", "         ", "         ", "         ", "         ", "         ", "         " };
+const char BATTERYTXTR[10][10] = {  "B        ", 
+									"         ", 
+									"         ", 
+									"         ", 
+									"         ", 
+									"         ", 
+									"         ", 
+									"         ", 
+									"         ", 
+									"         ", };
 
+const int BUCA = 15;
+const char BUCATXTR[10][10] = { "^^^^     ", 
+								"^^^^     ", 
+								"^^^^     ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         " };
 
+const int AUTO = 20;
+const char AUTOTXTR[10][10] = { "o-o      ", 
+								"\\_/      ", 
+								"|^|      ", 
+								"o-o      ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         " };
 
 class oggetto {
 protected:
@@ -50,13 +79,6 @@ struct lista {
 	oggetto* val;
 	lista* next;
 };
-
-struct oggetti
-{
-    oggetto *val;
-    oggetti *next;
-};
-
 
 typedef lista* listpntr;
 

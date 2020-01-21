@@ -1,3 +1,4 @@
+
 #include "livello.h"
 #include <time.h>
 
@@ -67,7 +68,7 @@
 
 	listpntr livello::generaLivello(){  //genera livello con difficolta livMax
 		liv = generaMappa();
-		livStringGeneator(50);
+		livStringGeneator(100);
 		return liv;
 	}
 
@@ -82,7 +83,7 @@
 			return ris;
 		}
 		else if (type == 3) { //auto
-			ris = new oggetto(type, posx, globaly, 3, 4, AUTO, 0, AUTOTXTR, true);
+			ris = new oggetto(type, posx, globaly, 3, 3, AUTO, 0, AUTOTXTR, true);
 			return ris;
 		}
 		else {
@@ -128,7 +129,7 @@
 
 	listpntr livello::getLiv()
 	{
-		return liv; 
+		return liv;
 	}
 
 	int livello::getLivAtt()
@@ -148,7 +149,7 @@
 		listpntr l1 = NULL;
 		listpntr l2 = NULL;
 		srand(time(NULL));
-		nObj = 50;
+		nObj = 100;
 		while (i < nObj)
 		{
 
