@@ -1,10 +1,8 @@
-#include<iostream>
 #include<time.h>
 #include<stdlib.h>
 #include"levelgenerator.h"
 #include"libreria.h"
 #include"oggetto.h"
-#include"math.h"
 
 using namespace std;
 
@@ -100,8 +98,8 @@ int item_creator(listpntr head, int level)
 }
 
 //funzione di inserimento dell'oggetto generato in lista
-listpntr lista_oggetti(listpntr head, int type, int posx, int Globaly) {
-	srand(time(NULL));
+listpntr lista_oggetti(listpntr head, int type, int posx, int Globaly) 
+{
 	if (head != NULL) {
 		listpntr tmp = head;
 		listpntr tmp1;
@@ -116,5 +114,6 @@ listpntr lista_oggetti(listpntr head, int type, int posx, int Globaly) {
 		head->val = objGenerator(type, posx, Globaly);
 		head->next = NULL;
 	}
+	return head;
 }
 
