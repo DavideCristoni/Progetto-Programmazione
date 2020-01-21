@@ -1,9 +1,6 @@
 #include "livello.h"
-
-#include <iostream>
 #include <time.h>
 
-	//sostituire quel mostro di interpretazione per usare effettivamente la formattazione di fscanf e fprintf
 
 	livello::livello() {
 		file = fopen(nomefile, "w+");
@@ -55,19 +52,22 @@
 	}
 
 	listpntr livello::caricaLivello() { //legge i livello di numero livAtt
-		char c[1000];
 		rewind(file);
-		fscanf(file, "%s", c);
-		while (atoi(c) != livAtt)
-			fscanf(file, "%s", c);
-		return objListGenerator(c);
+		int livello, nObj;
+		fscanf(file, "%d_%d:", &livello, &nObj);
+		while (livello != livAtt) {
+			char c;
+			do {
+				c = fgetc(file);
+			} while (c != '\n');
+			fscanf(file, "%d_%d:", &livello, &nObj);
+		}
+		return objListGenerator(nObj);
 	}
 
 	listpntr livello::generaLivello(){  //genera livello con difficolta livMax
 		liv = generaMappa();
-		char c[1000];
-		livStringGeneator(c);
-		fprintf(file, "%s\n", c);
+		livStringGeneator(100);
 		return liv;
 	}
 
@@ -81,67 +81,45 @@
 			ris = new oggetto(type, posx, globaly, 4, 3, BUCA, 0, BUCATXTR, false);
 			return ris;
 		}
-	}
-
-	int livello::leggiIntArray(char source[], char car, int& cont) { //scorre l'array fino a un certo carattere e ne restituisce l'intero che compariva prima
-		int i = 0;
-		char temp[10];
-		while (source[cont] != car) {
-			temp[i] = source[cont];
-			i++;
-			cont++;
+		else {
+			return NULL;
 		}
-		cont++;
-		return atoi(temp);
 	}
 
-	listpntr livello::objListGenerator(char l[]) { //dato ciòche legge nel file, genera la lista di oggetti e la restituisce
-		int liv, nobj;
-		int c = 0;
+	listpntr livello::objListGenerator(int nObj) { //dato ciï¿½che legge nel file, genera la lista di oggetti e la restituisce
 		listpntr ris = NULL;
 		listpntr punt = NULL;
-		liv = leggiIntArray(l, '_', c);			//legge quale livello è
-		nobj = leggiIntArray(l, ':', c);		//legge qanti oggetti sono prsenti nel livello
-		for (int i = 0; i < nobj; i++) {
-			int obj = leggiIntArray(l, '@', c);	//legge il codice dell'oggetto
-			int posx = leggiIntArray(l, '|', c);//legge la posizione x dell'oggetto
-			int globaly = leggiIntArray(l, '#', c);//legge la posizione x dell'oggetto
+		for (int i = 0; i < nObj; i++) {
+			int type, posx, globaly;
+			fscanf(file, "%d@%d|%d#", &type, &posx, &globaly);
 			if (punt == NULL) {
 				ris = new lista;
 				punt = ris;
-				punt->val = objGenerator(obj, posx, globaly);
+				punt->val = objGenerator(type, posx, globaly);
 				punt->next = NULL;
 			}
 			else {
 				punt->next = new lista;
 				punt = punt->next;
-				punt->val = objGenerator(obj, posx, globaly);
+				punt->val = objGenerator(type, posx, globaly);
 				punt->next = NULL;
 			}
 		}
+		fgetc(file); //smalticso la \n
+		liv = ris;
 		return ris;
 	}
 
-	void livello::livStringGeneator(char c[]) { //traduce l'attribuo lista livello in una stringa da stampare in file
-		int cursore = 0, nobj=0;
-		arrayInsert(c, livMax, cursore);
-		arrayInsert(c, '_', cursore);
-		arrayInsert(c, 100, cursore);
-		arrayInsert(c, ':', cursore);
+	void livello::livStringGeneator(int nObj) { //traduce l'attribuo lista livello in una stringa da stampare in file
+		int cursore = 0;
+		fprintf(file, "%d_%d:", livMax, nObj);
 		listpntr temp = liv;
 		while (temp != NULL) {
 			oggetto* obj = temp->val;
-			arrayInsert(c, obj->getType(), cursore);
-			arrayInsert(c, '@', cursore);
-			arrayInsert(c, obj->getPosX(), cursore);
-			arrayInsert(c, '|', cursore);
-			arrayInsert(c, obj->getGloalY(), cursore);
-			arrayInsert(c, '#', cursore);
-			nobj++;
+			fprintf(file, "%d@%d|%d#", obj->getType(), obj->getPosX(), obj->getGloalY());
 			temp = temp->next;
 		}
-		c[cursore] = '\0';
-		//c[2] = nobj;
+		fprintf(file, "\n");
 	}
 
 	listpntr livello::getLiv()
@@ -175,7 +153,7 @@
 			posx = (rand() % (50)) + 2;
 			if (type == 2)
 				posx = posx - 3;
-			globy = (rand() % 700) + 70;
+			globy = (rand() % 20);
 			l2 = new lista;
 			l2->val = objGenerator(type, posx, globy);
 			l1 = push(l1, l2);
@@ -188,20 +166,4 @@
 	{
 		l2->next = l1;
 		return l2;
-	}
-
-	void livello::arrayInsert(char a[], char c, int &cursore) {
-		a[cursore] = c;
-		cursore++;
-	}
-
-	void livello::arrayInsert(char a[], int n, int& cursore) {
-		char temp[10];
-		sprintf(temp, "%d", n);
-		int i = 0;
-		while (temp[i] != '\0') {
-			a[cursore] = temp[i];
-			cursore++; 
-			i++;
-		}
 	}

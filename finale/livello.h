@@ -37,15 +37,9 @@ private:
 
 	oggetto* objGenerator(int type, int posx, int globaly); //genera un ogetto a partire dal suo tipo
 
-	int leggiIntArray(char source[], char car, int& cont); //legge, all'interno dell'array, il numero prima di un char
+	listpntr objListGenerator(int nObj); //genera la lista di oggetti a partire dalla stringa letta su file
 
-	listpntr objListGenerator(char l[]); //genera la lista di oggetti a partire dalla stringa letta su file
-
-	void arrayInsert(char a[], char c, int& cursore); //inserisce nell'array un char e porta avanti il cursore
-
-	void arrayInsert(char a[], int n, int& cursore); //inserisce nell'array un char e porta avanti il cursore
-
-	void livStringGeneator(char c[]); //traduce la lista livellogenerata nella stringa a stampare su file
+	void livStringGeneator(int nObj); //traduce la lista livellogenerata nella stringa a stampare su file
 
 	listpntr generaMappa();
 
