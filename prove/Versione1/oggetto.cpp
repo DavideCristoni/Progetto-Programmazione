@@ -49,6 +49,10 @@ using namespace std;
 		if (enable) {
 			score = score - this->score;
 			battery = battery + this->battery;
+			if (battery > 100)
+			{
+				battery = 100;
+			}
 			enable = false;
 		}
 	}
