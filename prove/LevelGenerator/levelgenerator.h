@@ -10,3 +10,4 @@ using namespace std;
 void item_creator(listpntr);
 
 void lista_oggetti(listpntr, int, int, int);
+

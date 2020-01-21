@@ -4,11 +4,12 @@
 #include"levelgenerator.h"
 #include"libreria.h"
 #include"oggetto.h"
+#include"math.h"
+
+using namespace std;
 
 #define OFFSET_MENU 32
 #define COLS 56
-
-using namespace std;
 
 int item_creator(listpntr head, int level) {
 	
@@ -22,9 +23,16 @@ int item_creator(listpntr head, int level) {
 	//variabile per far sì che ci sia almeno una corsia vuota
 	int last;
 	last = rand() % ncas;
+	for(int k=0; k<ncas; k++)
+	{
+		if(last != k)
+		{
+			flag[k]=1;
+		}
+	}
 	//probabilità batterie e ostacoli
-	int per_bat = 60 + (2 * level);
-	int per_ost = 80 - (5 * level);
+	float per_bat = min(90 + 0.2 * level, 95.0) ;
+	float per_ost = max(50 + 0.2 * level, 50.0) ;
 	//questo for fa sì che ogni x caratteri della mappa si creino ostacoli e/o batterie
 	for (int j = 20; j < 500; j = j + 10)
 	{
@@ -39,7 +47,7 @@ int item_creator(listpntr head, int level) {
 				//i indica la corsia (partendo da 0) quindi moltiplicandola per 4 e sommando 2 abbiamo il carattere esatto della sua x (il +1 è per far sì che la batteria sia più centrale)
 				lista_oggetti(head, 1, i * 4 + 2 + 1, j);
 				flag[i] = 0;
-				n_obj++ ;
+				n_obj++;
 			}
 			//BUCHE (4x3)
 			else
@@ -59,16 +67,34 @@ int item_creator(listpntr head, int level) {
 			}
 		}
 		//percorso libero
-		if(flag[last + 1] == 0)
+		if(last!= 4 && last != 0)
+		{
+			
+			if(flag[last + 1] == 0)
+			{
+				if(flag[last - 1] == 0)
+				{
+					if(rand() % 3 == 1) last = last + 1;
+					else if(rand() % 3 == 2) last = last - 1;
+				}
+				else
+				{
+					if(rand() % 2 == 1) last = last + 1;
+				}
+			}
+		}
+		else if(last == 4)
 		{
 			if(flag[last - 1] == 0)
 			{
-				if(rand() % 3 == 1) last = last + 1;
-				else if(rand() % 3 == 2) last = last - 1;
+				if(rand() % 2 == 0) last = last - 1;
 			}
-			else
+		}
+		else
+		{
+			if(flag[last + 1] == 0)
 			{
-				if(rand() % 2 == 1) last = last + 1;
+				if(rand() % 2 == 0) last = last + 1;
 			}
 		}
 	}
@@ -90,8 +116,4 @@ void lista_oggetti(listpntr head, int type, int posx, int Globaly) {
 		head->val = objGenerator(1, posx, Globaly);
 		head->next = NULL;
 	}
-}
-int main(){
-	cout<<"hello"<<endl;
-	return 0;
 }
