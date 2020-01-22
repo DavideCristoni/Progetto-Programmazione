@@ -1,10 +1,11 @@
 #include "mappa.h"
-            mappa::mappa(listpntr l1, int goal, int lim)
+            mappa::mappa(listpntr l1, int goal, int lim, int l)
             {
                 listaOggetti = l1;
                 this->goal = goal;
                 limit = lim;
                 listaOggetti = l1;
+                lunghezza = l;
             }
             void mappa::checkCollision(int &score, double &battery, player p1)
             {
@@ -114,13 +115,13 @@
                 else    
                     y = 4;
 
-                attron(COLOR_PAIR(3));
+                attron(COLOR_PAIR(5));
                 while(y < maxY)
                 {
                     mvaddch(y, (x - OFFSET_MENU)/2, ' ');
                     y = y + 5;
                 }
-                attroff(COLOR_PAIR(3));
+                attroff(COLOR_PAIR(5));
                 while(i <= maxY)
                 {
                     mvprintw(i, 0, "||");
@@ -140,6 +141,10 @@
             bool mappa::check_retrocedi(int score)
             {
                 return score < limit ;
+            }
+            bool mappa::check_ricarica(int globy)
+            {
+                return lunghezza < globy;
             }
             int mappa::getGoal()
             {
