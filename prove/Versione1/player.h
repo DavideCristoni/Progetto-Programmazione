@@ -1,3 +1,7 @@
+#ifndef PLAYER_H
+
+#define PLAYER_H
+
 #include "header.h"
 #define OFFSET_MENU 30
 
@@ -16,3 +20,5 @@ class player
         int getOffsetx();
         int getOffsety();
 };
+
+#endif

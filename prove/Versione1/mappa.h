@@ -1,3 +1,7 @@
+#ifndef MAPPA_H
+
+#define MAPPA_H
+
 #include "player.h"
 #include "livello.h"
 
@@ -21,3 +25,5 @@ class mappa
             bool check_ricarica(int globy);
             int getGoal();
 };
+
+#endif
