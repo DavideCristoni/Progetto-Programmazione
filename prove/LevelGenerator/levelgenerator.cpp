@@ -6,13 +6,14 @@
 
 using namespace std;
 
-int item_creator(listpntr head, int level)
+listpntr item_creator(int &n_obj, int level)
 {	
-	head = new lista;
-	int n_obj = 0;
+	listpntr l1 = NULL;
+	listpntr l2 = NULL;
 	srand(time(NULL));
 	//Numero di corsie larghe 4 caratteri l'una (come la macchina)
-	int ncas = (COLS - OFFSET_MENU - 4) / 4;
+	//int ncas = (COLS - OFFSET_MENU - 4) / 4;
+	int ncas=10;
 	//vettore che serve per dei controlli che devo ancora implementare
 	int flag[ncas];
 	//variabile per far sì che ci sia almeno una corsia vuota
@@ -40,7 +41,9 @@ int item_creator(listpntr head, int level)
 			if (rand() % 101 >= per_bat)
 			{
 				//i indica la corsia (partendo da 0) quindi moltiplicandola per 4 e sommando 2 abbiamo il carattere esatto della sua x (il +1 è per far sì che la batteria sia più centrale)
-				head = lista_oggetti(head, 1, i * 4 + 2 + 1, j);
+				l2 = new lista;
+				l2->val = objGenerator(1, i*4+2+1, j);
+				l1 = push(l1, l2);
 				flag[i] = 0;
 				n_obj++;
 			}
@@ -54,7 +57,9 @@ int item_creator(listpntr head, int level)
 					if (rand() % 101 >= per_ost)
 					{
 						//il rand è per la possibile generazione di un auto (2=BUCA 3=AUTO)
-						head = lista_oggetti(head, (rand() % 2) + 2, i * 4 + 2, j);
+						l2 = new lista;
+						l2->val = objGenerator((rand() % 2) + 2, i*4+2, j);
+						l1 = push(l1, l2);
 						flag[i] = 1;
 						n_obj++;
 					}
@@ -94,26 +99,11 @@ int item_creator(listpntr head, int level)
 			}
 		}
 	}
-	return n_obj;
+	return l1;
 }
 
-//funzione di inserimento dell'oggetto generato in lista
-listpntr lista_oggetti(listpntr head, int type, int posx, int Globaly) 
+listpntr push(listpntr l1, listpntr l2)
 {
-	if (head != NULL) {
-		listpntr tmp = head;
-		listpntr tmp1;
-		while (tmp->next != NULL) tmp = tmp->next;
-		tmp1 = new lista;
-		tmp1->val = objGenerator(type, posx, Globaly);
-		tmp1->next = NULL;
-		tmp->next=tmp1;
-	}
-	else {
-		head = new lista;
-		head->val = objGenerator(type, posx, Globaly);
-		head->next = NULL;
-	}
-	return head;
+	l2->next = l1;
+	return l2;
 }
-
