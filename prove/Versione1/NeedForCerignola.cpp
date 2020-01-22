@@ -13,7 +13,7 @@ class gioco
         int scoreGain;
         int lvl;
         int azione; // Indica se si deve ricaricare, passare, o retrocedere di livello;
-        int initialGoal = 1000; // Punteggio iniziale
+        int initialGoal = 0; // Punteggio iniziale
         bool endGame;
         livello *l;
     public:
@@ -113,9 +113,22 @@ class gioco
                     azione = 3;
                     return;
                 }
+                if(m->check_ricarica(globy))
+                {
+                    mvprintw(LINES / 2, COLS - OFFSET_MENU + 0 , "NON SEI RIUSCITO A");
+                    mvprintw(LINES / 2 + 1, COLS - OFFSET_MENU + 0 , "RAGGIUNGERE LO SCORE!!!");
+                    mvprintw(LINES / 2 + 2 , COLS - OFFSET_MENU + 0, "PREMI SPAZIO PER CONTINUARE");
+                    while(c != ' ')
+                    {
+                        c = getch();
+                    }
+                    azione = 1;
+                    return;
+                }
             }
 
             this->endGame = true;
+            initialGoal + (lvl * MOLT_LIV);
             return;
         }
         mappa *genera_mappa()
@@ -129,16 +142,16 @@ class gioco
 
             if (azione == 1)
             {
-                m1 = new mappa(l->getLiv(), initialGoal + (lvl * MOLT_LIV), limit);
+                m1 = new mappa(l->getLiv(), initialGoal + (lvl * MOLT_LIV), limit, (initialGoal + (lvl * MOLT_LIV) + 300) / scoreGain);
             }
             else if(azione == 2)
             {
-                m1 = new mappa(l->livelloSuccessivo(), initialGoal + (lvl * MOLT_LIV), limit);
+                m1 = new mappa(l->livelloSuccessivo(), initialGoal + (lvl * MOLT_LIV), limit, (initialGoal + (lvl * MOLT_LIV) + 300) / scoreGain);
                 
             }
             else
             {
-                m1 = new mappa(l->livelloPrecedente(), initialGoal + (lvl * MOLT_LIV), limit);
+                m1 = new mappa(l->livelloPrecedente(), initialGoal + (lvl * MOLT_LIV), limit, (initialGoal + (lvl * MOLT_LIV) + 300) / scoreGain);
                 //mvprintw(3, 0, "%p", l->getLiv());
             }
 
