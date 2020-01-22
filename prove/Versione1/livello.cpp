@@ -1,4 +1,6 @@
 #include "livello.h"
+#include "levelgenerator.h"
+#include <ncurses.h>
 #include <time.h>
 
 //implementare il codice di gledis
@@ -67,8 +69,10 @@
 	}
 
 	listpntr livello::generaLivello(){  //genera livello con difficolta livMax
-		liv = generaMappa();
-		livStringGeneator(50);
+	int nObj = 0;
+		liv = item_creator(nObj, livMax);
+		mvprintw(0, 10 ,"%d %p", nObj, liv);
+		livStringGeneator(nObj);
 		return liv;
 	}
 

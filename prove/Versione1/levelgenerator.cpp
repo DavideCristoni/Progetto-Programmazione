@@ -30,7 +30,7 @@ listpntr item_creator(int &n_obj, int level)
 	float per_bat = min(90 + 0.2 * level, 95.0) ;
 	float per_ost = max(80 - 0.2 * level, 50.0) ;
 	//questo for fa s� che ogni x caratteri della mappa si creino ostacoli e/o batterie
-	for (int j = 20; j < 500; j = j + 10)
+	for (int j = 20; j < 500; j = j + 5)
 	{
 		//possibile creazione di un oggetto in ogni corsia
 		for (int i = 0; i < ncas; i++)
