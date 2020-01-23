@@ -18,7 +18,7 @@ mappa.o: mappa.cpp mappa.h
 
 gioco.o: gioco.cpp gioco.h
 	g++ -c gioco.cpp
-
+  
 levelgenerator.o: levelgenerator.cpp levelgenerator.h
 	g++ -c levelgenerator.cpp
 
