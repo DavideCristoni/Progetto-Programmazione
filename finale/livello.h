@@ -8,7 +8,7 @@ class livello {
 protected:
 	FILE* file;
 	const char nomefile[15] = { "mappa.txt" };
-	int livAtt, livMax;
+	int livAtt, livMax, livLong;
 	listpntr liv;
 
 public:
@@ -16,9 +16,9 @@ public:
 
 	void chiudi(); //chiude il file e libera la lista degli oggetti di un livello
 
-	listpntr livelloSuccessivo();
+	listpntr livelloSuccessivo(int &lung);
 
-	listpntr livelloPrecedente();
+	listpntr livelloPrecedente(int &lung);
 
 	listpntr getLiv(); //ritorna il puntatore alla lista livello
 
@@ -26,6 +26,9 @@ public:
 
 	int getLivMax(); //ritorna il livello massimo generato
 
+	int getLivLong(); //ritorna la lunghezza del livello
+
+	listpntr resetLivello();//resetta lo stato dei vari oggetti
 	
 private:
 

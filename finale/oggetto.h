@@ -4,10 +4,41 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
-const double BATTERY = 15;
-const char BATTERYTXTR[10][10] = { "B        ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", };
-const int BUCA = 15;
-const char BUCATXTR[10][10] = { "^^^^     ", "^^^^     ", "^^^^     ", "         ", "         ", "         ", "         ", "         ", "         ", "         " };
+const int BATTERY = 15;
+const char BATTERYTXTR[10][10] = {  "B        ", 
+									"         ", 
+									"         ", 
+									"         ", 
+									"         ", 
+									"         ", 
+									"         ", 
+									"         ", 
+									"         ", 
+									"         ", };
+
+const int BUCA = 500;
+const char BUCATXTR[10][10] = { "^^^^     ", 
+								"^^^^     ", 
+								"^^^^     ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         " };
+
+const int AUTO = 300;
+const char AUTOTXTR[10][10] = { "o-o      ", 
+								"\\_/      ", 
+								"|^|      ", 
+								"o-o      ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         " };
 
 class oggetto {
 protected:
@@ -26,7 +57,9 @@ public:
 
 	void stampa();
 
-	void effect(int& score, int& battery);
+	void effect(int& score, double& battery);
+
+	void abilita();
 
 	int getPosX();
 
@@ -40,7 +73,7 @@ public:
 
 	int getOffsety();
 
-
+	void reset();
 
 };
 

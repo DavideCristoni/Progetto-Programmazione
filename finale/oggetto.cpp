@@ -1,5 +1,6 @@
 #include "oggetto.h"
-#include <iostream>
+#include "header.h"
+#include <cstring>
 
 using namespace std;
 
@@ -22,17 +23,11 @@ using namespace std;
 	void oggetto::move()
 	{
 		posy++;
+		abilita();
 	}
 	
 	void oggetto::stampa()
 	{
-		cout << "type: " << type << ", posx: " << posx << ", globaly: " << globaly << ", score: " << score << ", battery: " << battery << " texture:" << endl;
-		for (int i = 0; i < offsetY; i++) {
-			for (int j = 0; j < offsetX; j++)
-				cout << texture[i][j];
-			cout << endl;
-		}
-		/*
 		int i;
 		int j = 0;
 			if(!disappearOnContact || enable){
@@ -47,18 +42,21 @@ using namespace std;
 					j = 0;
 				}
 		attroff(COLOR_PAIR(type));
-		}*/
+		}
 	}
 	
-	void oggetto::effect(int& score, int& battery)
+	void oggetto::effect(int& score, double& battery)
 	{
 		if (enable) {
 			score = score - this->score;
 			battery = battery + this->battery;
+			if (battery > 100)
+			{
+				battery = 100;
+			}
 			enable = false;
 		}
 	}
-
 	
 	int oggetto::getPosX()
 	{
@@ -89,3 +87,27 @@ using namespace std;
 	{ 
 		return offsetY; 
 	}
+
+	void oggetto::reset(){
+		posy=0;
+		enable=true;
+	}
+
+
+	void oggetto::abilita()
+	{
+		int molt = 1;
+		if(type == 3)
+		{
+			molt = (rand() % 3) - 1;
+			if(posx <= 2)
+			{
+				molt = 1;
+			}
+			else if(posx >= ((COLS - OFFSET_MENU) - 5))
+			{
+				molt = -1;
+			}
+			posx = posx + molt;	
+		}
+	} 
