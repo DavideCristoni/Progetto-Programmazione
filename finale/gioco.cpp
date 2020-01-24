@@ -385,7 +385,7 @@
 
         bool gioco::ref(clock_t start) 
         {
-            int modulo;
+            long long unsigned int modulo;
             int dif = 0;
             if (lvl > 10)
                 dif = 200;
@@ -396,6 +396,7 @@
 
             clock_t end;
             end = clock();
+            mvprintw(2, 0, "%d", end);
             modulo = ((double)(end - start) / (double) CLOCKS_PER_SEC) * 10000;
             if (modulo % (1000 - dif) == 0) 
                 return true;
@@ -450,5 +451,7 @@
                 else if(lvl <= 20)
                 {
                     scoreGain = 2;
-                }            
+                }     
+
+                scoreGain = 50;       
         }

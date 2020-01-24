@@ -96,10 +96,9 @@ using namespace std;
 
 	void oggetto::abilita()
 	{
-		int molt = 1;
 		if(type == 3)
 		{
-			molt = (rand() % 3) - 1;
+			int molt = (rand() % 3) - 1;
 			if(posx <= 2)
 			{
 				molt = 1;
