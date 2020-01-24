@@ -6,8 +6,14 @@
             score = 10;
             battery = 100;
             batteryLose = 0.4;
-            scoreGain = 10;
+            scoreGain = 1000;
+            punteggi = new punteggio;
+            moltGoal = 2;
             lvl = 1;
+            lvlMax = 0;
+            punteggi->limit = 0;
+            punteggi->lvl = 0;
+            punteggi->next = NULL;
             inizializza();
             endGame = false;
             l = new livello();
@@ -53,9 +59,8 @@
                     //stampa_layout(score, battery, col);
                     stampa_laterale(battery, score);
                     globy++;
-                    mvprintw(0, 0, "%d", globy);
+                    //mvprintw(0, 0, "%d", globy);
                    // men.stampa_menu();
-                    mvprintw(0, 0 ,"%d", globy);
                     refresh();
                 }
                 if(c == 'w' || c == 'a' || c == 's' || c == 'd')
@@ -111,7 +116,7 @@
                     {
                         c = getch();
                     }
-                    azione = 1;
+                    azione = 4;
                     return;
                 }
             }
@@ -129,28 +134,37 @@
             else
                 limit = 0;
 
+            limit = ricerca_limit();
             if (azione == 1)
             {
                 lunghezza = l->getLivLong();
-                m1 = new mappa(l->getLiv(), lunghezza * 10, limit, lunghezza);
+                m1 = new mappa(l->getLiv(), (lunghezza * 10) + limit, limit, lunghezza);
             }
             else if(azione == 2)
             {
-                m1 = new mappa(l->livelloSuccessivo(lunghezza), lunghezza * 10, limit, lunghezza);
+                m1 = new mappa(l->livelloSuccessivo(lunghezza), (lunghezza * 10) + limit, limit, lunghezza);
                 
+            }
+            else if(azione == 3)
+            {
+
+                m1 = new mappa(l->livelloPrecedente(lunghezza), (lunghezza * 10) + limit, limit, lunghezza);
             }
             else
             {
-                m1 = new mappa(l->livelloPrecedente(lunghezza), lunghezza * 10, limit, lunghezza);
-                //mvprintw(3, 0, "%p", l->getLiv());
+                lunghezza = l->getLivLong();
+                m1 = new mappa(l->resetLivello(), (lunghezza * 10) + limit, limit, lunghezza);
             }
 
+/*
             if(lvl % 4 == 0)
-                margineLvl = margineLvl - 500;
+                margineLvl = (2000 / lvl);
             if(margineLvl < 0)
                 margineLvl  = 0;
-            goal = (lunghezza * 10) - (margineLvl);
-
+*/
+            goal = (lunghezza * moltGoal); //- (margineLvl);
+            goal = goal + limit;
+            punteggi = push(goal);
             return m1;
         }
         bool gioco::check_game_over()
@@ -313,6 +327,20 @@
             {
                 m = genera_mappa();
                 char c = 'a';
+                if(lvl < 5)
+                    scoreGain = 12;
+                else if(lvl < 10)
+                {
+                    scoreGain = 10;
+                }
+                else if(lvl < 15)
+                {
+                    scoreGain = 5;
+                }
+                else if(lvl <= 20)
+                {
+                    scoreGain = 2;
+                }
                 start(m);
                 reset();
                 delete(m);
@@ -332,7 +360,7 @@
         }
         void gioco::reset()
         {
-            score = 0;
+            score = ricerca_limit();
             if(lvl == 1)
                 score = 0;
             battery = 100;
@@ -384,4 +412,36 @@
                 return true;
             else 
                 return false;
+        }
+
+
+        punteggio *gioco::push(int val)
+        {
+            punteggio *tmp;
+            if(lvl > lvlMax)
+            {
+                tmp = new punteggio;
+                tmp->lvl = lvl;
+                tmp->limit = val;
+                tmp->next = punteggi;
+                lvlMax = lvl;
+                return tmp;
+            }
+            else
+                return punteggi;
+        }
+
+        int gioco::ricerca_limit()
+        {
+            punteggio *tmp;
+            tmp = punteggi;
+            bool trovato = false;
+            while(tmp != NULL && !trovato)
+            {
+                if(lvl  > tmp->lvl)
+                    trovato = true;
+                else
+                    tmp = tmp->next;
+            }
+            return tmp->limit;
         }
