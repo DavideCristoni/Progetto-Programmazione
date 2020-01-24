@@ -50,7 +50,7 @@
                     flag = (flag + 1) % 5;
                     m->move(globy);
                     m->stampa(globy);
-                    m->checkCollision(score, battery, &p1);
+                    m->checkCollision(score, battery, &p1, globy);
                     score = score + scoreGain;
                     battery = battery - batteryLose; 
                     
@@ -68,7 +68,7 @@
                     clear();
                     m->stampa_strada(flag);
                     m->stampa(globy);
-                    m->checkCollision(score, battery, &p1);
+                    m->checkCollision(score, battery, &p1, globy);
                     p1.move(c, col, row);
                     p1.stampa();
                     //stampa_layout(score, battery, col);
