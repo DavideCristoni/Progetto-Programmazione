@@ -327,24 +327,10 @@
             {
                 m = genera_mappa();
                 char c = 'a';
-                if(lvl < 5)
-                    scoreGain = 12;
-                else if(lvl < 10)
-                {
-                    scoreGain = 10;
-                }
-                else if(lvl < 15)
-                {
-                    scoreGain = 5;
-                }
-                else if(lvl <= 20)
-                {
-                    scoreGain = 2;
-                }
+                modScoreGain();
                 start(m);
-                reset();
                 delete(m);
-                if(lvl == 0)
+                if(lvl <= 0)
                     {
                         clear();
                         endGame = true;
@@ -355,14 +341,17 @@
                             c = getch();
                         }
                     }
+                else
+                    reset();      
             }
             endwin();
         }
         void gioco::reset()
         {
-            score = ricerca_limit();
             if(lvl == 1)
                 score = 0;
+            else
+                score = ricerca_limit();
             battery = 100;
         }
         void gioco::stampa_istruzioni()
@@ -444,4 +433,22 @@
                     tmp = tmp->next;
             }
             return tmp->limit;
+        }
+
+        void gioco::modScoreGain()
+        {
+                if(lvl < 5)
+                    scoreGain = 12;
+                else if(lvl < 10)
+                {
+                    scoreGain = 10;
+                }
+                else if(lvl < 15)
+                {
+                    scoreGain = 5;
+                }
+                else if(lvl <= 20)
+                {
+                    scoreGain = 2;
+                }            
         }

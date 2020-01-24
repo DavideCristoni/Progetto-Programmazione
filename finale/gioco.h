@@ -40,6 +40,7 @@ class gioco
         bool check_goal();
         bool check_retrocedi();
         bool check_game_over();
+        void modScoreGain();
         bool ref(clock_t start);
         punteggio *push(int val);
         int ricerca_limit();
