@@ -25,12 +25,15 @@ listpntr item_creator(int &n_obj, int level, int &lev_lenght)
 	{
 		if(last != k)
 		{
-			flag[k]=1;
+			flag[k] = 1 ;
 		}
 	}
 	//probabilit� batterie e ostacoli
-	float per_bat = min(93 + 0.2 * level, 98.0) ;
-	float per_ost = max(90 - 0.2 * level, 50.0) ;
+	float per_bat = min(92 + 0.2 * level, 98.0) ;
+	float per_ost = max(85 - 0.2 * level, 70.0) ;
+	float per_mac = max(85 - 0.5 * level, 70.0) ;
+	int cont_mac = 0 ;
+	if(level < 5) per_mac = 101;
     int salti = (10 - (level / 2));
     salti = max(salti, 5);
 	//questo for fa s� che ogni x caratteri della mappa si creino ostacoli e/o batterie
@@ -69,20 +72,29 @@ listpntr item_creator(int &n_obj, int level, int &lev_lenght)
 					}
                     else
                     {
-                        if (rand() % 101 >= per_ost)
-					    {
-						    //il rand � per la possibile generazione di un auto (2=BUCA 3=AUTO)
-						    l4 = new lista;
-						    l4->val = objGenerator(3, (i*4+2), j);
-						    l3 = push(l3, l4);
-		    				flag[i] = 1;
-			    			n_obj++;
-				    	}
-                        else flag[i] = 0;
+						if(cont_mac == 0)
+						{
+
+                        	if (rand() % 101 >= per_mac)
+					    	{
+							    //il rand � per la possibile generazione di un auto (2=BUCA 3=AUTO)
+							    l4 = new lista;
+						   		l4->val = objGenerator(3, (i*4+2), j);
+							    l3 = push(l3, l4);
+		    					flag[i] = 1;
+			    				n_obj++;
+								cont_mac++;
+				    		}
+                        	else flag[i] = 0;
+						}
+						else flag[i] = 0;
                     }
 				}
 			}
+			cont_mac++;
+			if (cont_mac == 3) cont_mac = 0 ;
 		}
+		cont_mac == 0 ;
 		//percorso libero
 		if(last!= 4 && last != 0)
 		{
