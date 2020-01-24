@@ -65,7 +65,7 @@ listpntr item_creator(int &n_obj, int level, int &lev_lenght)
 					{
 						//il rand � per la possibile generazione di un auto (2=BUCA 3=AUTO)
 						l2 = new lista;
-						l2->val = objGenerator(2, (i*4+2), j);
+						l2->val = objGenerator(rand() % 2 + 2, (i*4+2), j);
 						l1 = push(l1, l2);
 						flag[i] = 1;
 						n_obj++;
@@ -79,7 +79,7 @@ listpntr item_creator(int &n_obj, int level, int &lev_lenght)
 					    	{
 							    //il rand � per la possibile generazione di un auto (2=BUCA 3=AUTO)
 							    l4 = new lista;
-						   		l4->val = objGenerator(3, (i*4+2), j);
+						   		l4->val = objGenerator(4, (i*4+2), j);
 							    l3 = push(l3, l4);
 		    					flag[i] = 1;
 			    				n_obj++;

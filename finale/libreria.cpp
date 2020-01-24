@@ -15,7 +15,11 @@ oggetto* objGenerator(int type, int posx, int globaly) {
 			ris = new oggetto(type, posx, globaly, 4, 3, BUCA, 0, BUCATXTR, false);
 			return ris;
 		}
-		else if (type == 3) { //auto
+		else if (type == 3) { //ghiaccio
+			ris = new oggetto(type, posx, globaly, 3, 4, 0, 0, ICETXTR, false);
+			return ris;
+		}
+		else if (type == 4) { //auto
 			ris = new oggetto(type, posx, globaly, 3, 4, AUTO, 0, AUTOTXTR, true);
 			return ris;
 		}

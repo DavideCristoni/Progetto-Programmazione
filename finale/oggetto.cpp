@@ -45,7 +45,7 @@ using namespace std;
 		}
 	}
 	
-	void oggetto::effect(int& score, double& battery)
+	void oggetto::effect(int& score, double& battery, player *p)
 	{
 		if (enable) {
 			score = score - this->score;
@@ -55,6 +55,22 @@ using namespace std;
 				battery = 100;
 			}
 			enable = false;
+
+			if(type == 3)
+			{
+				int a;
+				a = rand() % 4 + 1;
+				char d = 'w';
+				if(a == 1) d = 'w';
+				if(a == 1) d = 's';
+				if(a == 1) d = 'd';
+				if(a == 1) d = 'a';
+
+				for(int i = 0; i < 7; i++)
+				{
+					p->move(d, COLS, LINES);
+				}
+			}
 		}
 	}
 	
@@ -96,7 +112,7 @@ using namespace std;
 
 	void oggetto::abilita()
 	{
-		if(type == 3)
+		if(type == 4)
 		{
 			int molt = (rand() % 3) - 1;
 			if(posx <= 2)

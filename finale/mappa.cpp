@@ -7,7 +7,7 @@
                 listaOggetti = l1;
                 lunghezza = l;
             }
-            void mappa::checkCollision(int &score, double &battery, player p1)
+            void mappa::checkCollision(int &score, double &battery, player *p1)
             {
                 listpntr tmp;
                 tmp = listaOggetti;
@@ -16,12 +16,12 @@
                 while(tmp != NULL)
                 {
                     //Collisione da P1 avanti ostacolo dietro
-                    for(j = 0; j < p1.getOffsetx(); j++)
+                    for(j = 0; j < p1->getOffsetx(); j++)
                     {
                         for(i = 0; i < tmp->val->getOffsetx(); i++)
-                            if(tmp->val->getPosX() + i == (p1.getPosx() + j) && (tmp->val->getPosY() - tmp->val->getOffsety() == (p1.getPosy())))
+                            if(tmp->val->getPosX() + i == (p1->getPosx() + j) && (tmp->val->getPosY() - tmp->val->getOffsety() == (p1->getPosy())))
                             {
-                                tmp->val->effect(score, battery);
+                                tmp->val->effect(score, battery, p1);
                                 collisione = true;
                             }
 
@@ -30,12 +30,12 @@
                     //Collisione P1 da destra a sinistra
                     if(!collisione)
                     {
-                        for(j = 0; j < p1.getOffsety(); j++)
+                        for(j = 0; j < p1->getOffsety(); j++)
                             for(i = 0; i < tmp->val->getOffsety(); i++)
 
-                                if(tmp->val->getPosX()  == (p1.getPosx() + p1.getOffsetx()-1) && (tmp->val->getPosY() - i == (p1.getPosy() - j + 1)))
+                                if(tmp->val->getPosX()  == (p1->getPosx() + p1->getOffsetx()-1) && (tmp->val->getPosY() - i == (p1->getPosy() - j + 1)))
                                 {
-                                    tmp->val->effect(score, battery);
+                                    tmp->val->effect(score, battery, p1);
                                     collisione = true;
                                 
                                 }
@@ -44,21 +44,21 @@
                     //Collsione da P1 da sinistra a destra
                     if(!collisione)
                     {
-                        for(j = 0; j < p1.getOffsety(); j++)
+                        for(j = 0; j < p1->getOffsety(); j++)
                             for(i = 0; i < tmp->val->getOffsety(); i++)
-                                if(tmp->val->getPosX() + tmp->val->getOffsetx() - 1  == (p1.getPosx()) && (tmp->val->getPosY() - i == (p1.getPosy() - j + 1)))
+                                if(tmp->val->getPosX() + tmp->val->getOffsetx() - 1  == (p1->getPosx()) && (tmp->val->getPosY() - i == (p1->getPosy() - j + 1)))
                                 {
-                                    tmp->val->effect(score, battery);
+                                    tmp->val->effect(score, battery, p1);
                                     collisione = true;
                                 }   
                     }
                     if(!collisione)
                     {                    
-                        for(j = 0; j < p1.getOffsetx(); j++)
+                        for(j = 0; j < p1->getOffsetx(); j++)
                             for(i = 0; i < tmp->val->getOffsetx(); i++)
-                                if(tmp->val->getPosX() + i  == (p1.getPosx() + j) && (tmp->val->getPosY() - 1 == (p1.getPosy() - p1.getOffsety() + 1)))
+                                if(tmp->val->getPosX() + i  == (p1->getPosx() + j) && (tmp->val->getPosY() - 1 == (p1->getPosy() - p1->getOffsety() + 1)))
                                 {
-                                    tmp->val->effect(score, battery);
+                                    tmp->val->effect(score, battery, p1);
                                     collisione = true;
                                 }
                     }
@@ -68,10 +68,10 @@
                     tmp = tmp->next;
                 }    
 
-                if(p1.getPosx() <= 0 + 1)
+                if(p1->getPosx() <= 0 + 1)
                     score = score - 105;
                         
-                else if(p1.getPosx() + p1.getOffsetx() - 1 >=  COLS - 2 - OFFSET_MENU)
+                else if(p1->getPosx() + p1->getOffsetx() - 1 >=  COLS - 2 - OFFSET_MENU)
                     score = score - 105;
                         
             }

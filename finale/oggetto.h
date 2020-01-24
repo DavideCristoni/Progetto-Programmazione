@@ -3,6 +3,7 @@
 #define OGGETTO_H 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include "player.h"
 
 const int BATTERY = 15;
 const char BATTERYTXTR[10][10] = {  "B        ", 
@@ -40,6 +41,17 @@ const char AUTOTXTR[10][10] = { "o-o      ",
 								"         ", 
 								"         " };
 
+const char ICETXTR[10][10] = {  "///      ", 
+								"///      ", 
+								"///      ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         " };
+
 class oggetto {
 protected:
 	int posx, posy, globaly;
@@ -57,7 +69,7 @@ public:
 
 	void stampa();
 
-	void effect(int& score, double& battery);
+	void effect(int& score, double& battery, player *p);
 
 	void abilita();
 

@@ -50,7 +50,7 @@
                     flag = (flag + 1) % 5;
                     m->move(globy);
                     m->stampa(globy);
-                    m->checkCollision(score, battery, p1);
+                    m->checkCollision(score, battery, &p1);
                     score = score + scoreGain;
                     battery = battery - batteryLose; 
                     
@@ -68,7 +68,7 @@
                     clear();
                     m->stampa_strada(flag);
                     m->stampa(globy);
-                    m->checkCollision(score, battery, p1);
+                    m->checkCollision(score, battery, &p1);
                     p1.move(c, col, row);
                     p1.stampa();
                     //stampa_layout(score, battery, col);
@@ -183,7 +183,7 @@
         {   
             char c = 'a';
             int sel = 5;
-            int notSel = 4;
+            int notSel = 6;
             int s1 = sel;
             int s2 = notSel;
             int s3 = notSel;
@@ -305,11 +305,11 @@
                 mvprintw(a,col-16,"| |");
             }
             if(battery < 60 && battery > 25)
-                color = 7;
-            else if(battery <= 25)
                 color = 8;
+            else if(battery <= 25)
+                color = 9;
             else
-                color = 6;
+                color = 7;
 
                 for(a-=1;a<(prm*3)+24;a++){
                 mvprintw(a,col-16,"|");
@@ -396,7 +396,6 @@
 
             clock_t end;
             end = clock();
-            mvprintw(2, 0, "%d", end);
             modulo = ((double)(end - start) / (double) CLOCKS_PER_SEC) * 10000;
             if (modulo % (1000 - dif) == 0) 
                 return true;
@@ -453,5 +452,4 @@
                     scoreGain = 2;
                 }     
 
-                scoreGain = 50;       
         }
