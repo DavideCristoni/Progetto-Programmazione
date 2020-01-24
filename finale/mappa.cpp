@@ -7,12 +7,13 @@
                 listaOggetti = l1;
                 lunghezza = l;
             }
-            void mappa::checkCollision(int &score, double &battery, player *p1)
+            void mappa::checkCollision(int &score, double &battery, player *p1, int globy)
             {
-                listpntr tmp;
+                listpntr tmp, tmp1;
                 tmp = listaOggetti;
                 int i, j;
                 bool collisione = false;
+                bool effetto = false;
                 while(tmp != NULL)
                 {
                     //Collisione da P1 avanti ostacolo dietro
@@ -21,7 +22,7 @@
                         for(i = 0; i < tmp->val->getOffsetx(); i++)
                             if(tmp->val->getPosX() + i == (p1->getPosx() + j) && (tmp->val->getPosY() - tmp->val->getOffsety() == (p1->getPosy())))
                             {
-                                tmp->val->effect(score, battery, p1);
+                                effetto = tmp->val->effect(score, battery, p1);
                                 collisione = true;
                             }
 
@@ -35,7 +36,7 @@
 
                                 if(tmp->val->getPosX()  == (p1->getPosx() + p1->getOffsetx()-1) && (tmp->val->getPosY() - i == (p1->getPosy() - j + 1)))
                                 {
-                                    tmp->val->effect(score, battery, p1);
+                                    effetto = tmp->val->effect(score, battery, p1);
                                     collisione = true;
                                 
                                 }
@@ -48,7 +49,7 @@
                             for(i = 0; i < tmp->val->getOffsety(); i++)
                                 if(tmp->val->getPosX() + tmp->val->getOffsetx() - 1  == (p1->getPosx()) && (tmp->val->getPosY() - i == (p1->getPosy() - j + 1)))
                                 {
-                                    tmp->val->effect(score, battery, p1);
+                                    effetto = tmp->val->effect(score, battery, p1);
                                     collisione = true;
                                 }   
                     }
@@ -58,9 +59,22 @@
                             for(i = 0; i < tmp->val->getOffsetx(); i++)
                                 if(tmp->val->getPosX() + i  == (p1->getPosx() + j) && (tmp->val->getPosY() - 1 == (p1->getPosy() - p1->getOffsety() + 1)))
                                 {
-                                    tmp->val->effect(score, battery, p1);
+                                    effetto = tmp->val->effect(score, battery, p1);
                                     collisione = true;
                                 }
+                    }
+
+                    if(effetto)
+                    {
+                        tmp1 = listaOggetti;
+                        while(tmp1 != NULL)
+                        {
+                            if(tmp1->val->getGloalY() <= globy)
+                                for(int i = 0; i < LINES; i++)
+                                    tmp1->val->move();
+                            tmp1 = tmp1->next;
+                        }
+                        effetto = false;
                     }
                     
                         //mvprintw(0, 0, "Posizione y P1: %d", p1.getPosy());

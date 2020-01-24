@@ -69,7 +69,7 @@ public:
 
 	void stampa();
 
-	void effect(int& score, double& battery, player *p);
+	bool effect(int& score, double& battery, player *p);
 
 	void abilita();
 

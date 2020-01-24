@@ -45,7 +45,7 @@ using namespace std;
 		}
 	}
 	
-	void oggetto::effect(int& score, double& battery, player *p)
+	bool oggetto::effect(int& score, double& battery, player *p)
 	{
 		if (enable) {
 			score = score - this->score;
@@ -71,7 +71,12 @@ using namespace std;
 					p->move(d, COLS, LINES);
 				}
 			}
+			if(type == 1)
+			{
+				return true;
+			}
 		}
+		return false;
 	}
 	
 	int oggetto::getPosX()
