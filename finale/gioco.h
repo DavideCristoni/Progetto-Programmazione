@@ -46,4 +46,4 @@ class gioco
         bool ref(clock_t start);
         punteggio *push(int val);
         int ricerca_limit();
-};
+};  

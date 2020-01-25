@@ -45,7 +45,7 @@ using namespace std;
 		}
 	}
 	
-	void oggetto::effect(int& score, double& battery, player *p)
+	bool oggetto::effect(int& score, double& battery, player *p)
 	{
 		if (enable) {
 			score = score - this->score;
@@ -56,7 +56,7 @@ using namespace std;
 			}
 			enable = false;
 
-			if(type == 3)
+			if(type == 5)
 			{
 				int a;
 				a = rand() % 4 + 1;
@@ -71,7 +71,13 @@ using namespace std;
 					p->move(d, COLS, LINES);
 				}
 			}
+            if(type == 2)
+			{
+				return true;
+			}
+		
 		}
+        return false;
 	}
 	
 	int oggetto::getPosX()
@@ -112,7 +118,7 @@ using namespace std;
 
 	void oggetto::abilita()
 	{
-		if(type == 4)
+		if(type == 3)
 		{
 			int molt = (rand() % 3) - 1;
 			if(posx <= 2)

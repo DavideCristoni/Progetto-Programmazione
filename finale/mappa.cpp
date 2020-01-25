@@ -7,11 +7,12 @@
                 listaOggetti = l1;
                 lunghezza = l;
             }
-            void mappa::checkCollision(int &score, double &battery, player *p1)
+            void mappa::checkCollision(int &score, double &battery, player *p1, int globy)
             {
-                listpntr tmp;
+                listpntr tmp, tmp1;
                 tmp = listaOggetti;
                 int i, j;
+                bool effetto = false;
                 bool collisione = false;
                 while(tmp != NULL)
                 {
@@ -57,14 +58,27 @@
                                     collisione = true;
                                 }
                     }
-                    
+                        
                     if(collisione)
                     {
-                        tmp->val->effect(score, battery, p1);
+                        effetto = tmp->val->effect(score, battery, p1);
                         collisione = false;
                     }
                     tmp = tmp->next;
-                }    
+                }
+                    if(effetto)
+                    {
+                        tmp1 = listaOggetti;
+                        while(tmp1 != NULL)
+                        {
+                            if(tmp1->val->getGloalY() <= globy)
+                                for(int i = 0; i < LINES; i++)
+                                    tmp1->val->move();
+                            tmp1 = tmp1->next;
+                        }
+                       
+                    }
+                             effetto = false;    
 
                 if(p1->getPosx() <= 0 + 1)
                     score = score - 105;
