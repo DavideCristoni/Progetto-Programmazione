@@ -71,7 +71,7 @@ using namespace std;
 					p->move(d, COLS, LINES);
 				}
 			}
-			if(type == 1)
+			if(type == 2)
 			{
 				return true;
 			}
@@ -117,7 +117,7 @@ using namespace std;
 
 	void oggetto::abilita()
 	{
-		if(type == 4)
+		if(type == 3)
 		{
 			int molt = (rand() % 3) - 1;
 			if(posx <= 2)
