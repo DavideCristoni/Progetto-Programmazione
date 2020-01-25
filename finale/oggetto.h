@@ -51,7 +51,16 @@ const char ICETXTR[10][10] = {  "///      ",
 								"         ", 
 								"         ", 
 								"         " };
-
+const char BOMBTXTR[10][10] = { "ò         ",
+			       					"         ",
+			       					"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         " };
 class oggetto {
 protected:
 	int posx, posy, globaly;
