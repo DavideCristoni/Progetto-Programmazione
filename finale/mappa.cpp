@@ -78,7 +78,7 @@
                         }
                        
                     }
-                             effetto = false;    
+                    effetto = false;    
 
                 if(p1->getPosx() <= 0 + 1)
                     score = score - 105;
@@ -127,13 +127,13 @@
                 else    
                     y = 4;
 
-                attron(COLOR_PAIR(5));
+                attron(COLOR_PAIR(10));
                 while(y < maxY)
                 {
                     mvaddch(y, (x - OFFSET_MENU)/2, ' ');
                     y = y + 5;
                 }
-                attroff(COLOR_PAIR(5));
+                attroff(COLOR_PAIR(10));
                 while(i <= maxY)
                 {
                     mvprintw(i, 0, "||");

@@ -1,4 +1,4 @@
-main: NeedForCerignola.cpp player.o libreria.o levelgenerator.o oggetto.o livello.o mappa.o gioco.o
+main: NeedForCerignola.cpp player.o libreria.o levelgenerator.o oggetto.o livello.o mappa.o gioco.o header.h
 	g++ -o NeedForCerignola NeedForCerignola.cpp player.o levelgenerator.o libreria.o mappa.o gioco.o livello.o oggetto.o -lncurses
 
 player.o: player.cpp player.h
