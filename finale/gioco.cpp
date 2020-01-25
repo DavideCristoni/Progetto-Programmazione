@@ -361,7 +361,7 @@
                 attron(COLOR_PAIR(6));
                 mvprintw(0, COLS/2 - 5, "ISTRUZIONI");
                 attroff(COLOR_PAIR(6));
-                mvprintw(2, 4, "Non vi è alcuna fine, punta a fare il punteggio più alto!!");
+                mvprintw(2, 4, "Non vi è alcuna fine, punta al punteggio più alto!!");
                 mvprintw(5, 1, "Raggiungi lo score necessario     ---->\n per passare di livello!!!");
                 mvprintw(8, 1, "Attenzione alla batteria!!!       ---->");
                 mvprintw(11, 1, "Se scenderai sotto un certo punteggio tornerai indietro di livello!!");
@@ -393,19 +393,24 @@
                 mvprintw(22, 7, "B");
                 attroff(COLOR_PAIR(1));
                 
-                mvprintw(25, 20, "<----    Il ghiaccio ti fa sbandare!!!");
+                mvprintw(24, 20, "<----    Le bombe eliminano tutti gli ostacoli!!!");
+                attron(COLOR_PAIR(2));
+                mvprintw(24, 7, "@");
+                attroff(COLOR_PAIR(2));
+                
+                mvprintw(27, 20, "<----    Il ghiaccio ti fa sbandare!!!");
                 attron(COLOR_PAIR(3));
-                mvprintw(24, 6, "///");
-                mvprintw(25, 6, "///");
                 mvprintw(26, 6, "///");
+                mvprintw(27, 6, "///");
+                mvprintw(28, 6, "///");
                 attroff(COLOR_PAIR(3));
 
-                mvprintw(28, 20, "<----    Le auto si muovono!!!");
+                mvprintw(31, 20, "<----    Le auto si muovono!!!");
                 attron(COLOR_PAIR(4));
-                mvprintw(28, 6, "o-o");
-                mvprintw(29, 6, "|^|");
-                mvprintw(30, 6, "\\_/");
-                mvprintw(31, 6, "o-o");
+                mvprintw(30, 6, "o-o");
+                mvprintw(31, 6, "|^|");
+                mvprintw(32, 6, "\\_/");
+                mvprintw(33, 6, "o-o");
                 attroff(COLOR_PAIR(4));
 
                 //Nome del gioco
