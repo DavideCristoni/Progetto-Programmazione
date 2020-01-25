@@ -93,7 +93,7 @@
 			return ris;
 		}
 		else if (type == 3) { //ghiaccio
-			ris = new oggetto(type, posx, globaly, 3, 4, 0, 0, ICETXTR, true);
+			ris = new oggetto(type, posx, globaly, 3, 4, 0, 0, ICETXTR, false);
 			return ris;
 		}
 		else if (type == 4) { //auto

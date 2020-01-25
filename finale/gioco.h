@@ -1,5 +1,14 @@
 #include "mappa.h"
 
+struct punteggio
+{
+    int lvl;
+    int limit;
+    punteggio *next;
+};
+
+
+
 class gioco
 {
     protected:
@@ -12,8 +21,10 @@ class gioco
         int initialGoal = 0; // Punteggio iniziale
         bool endGame;
         int limit;
+        int lvlMax;
+        int moltGoal;
         int goal;
-        int margineLvl;
+        punteggio *punteggi;
         livello *l;
     public:
         gioco();
@@ -24,9 +35,15 @@ class gioco
         void stampa_laterale(int energy, int score);
         void load_level();
         void reset();
+        void pausa();
         void stampa_istruzioni();
+        void reset_game();
         bool check_goal();
         bool check_retrocedi();
         bool check_game_over();
+        void modScoreGain();
+        void inizializza();
         bool ref(clock_t start);
+        punteggio *push(int val);
+        int ricerca_limit();
 };

@@ -3,7 +3,6 @@
 #define PLAYER_H
 
 #include "header.h"
-#define OFFSET_MENU 30
 
 
 class player
