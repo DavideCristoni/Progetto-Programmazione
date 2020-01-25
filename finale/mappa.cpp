@@ -74,8 +74,9 @@
                                     tmp1->val->move();
                             tmp1 = tmp1->next;
                         }
-                        effetto = false;
+                       
                     }
+                             effetto = false;
                     
                         //mvprintw(0, 0, "Posizione y P1: %d", p1.getPosy());
                         //mvprintw(1, 0, "Posizione y Batteria: %d", tmp1->val->getPosy());
