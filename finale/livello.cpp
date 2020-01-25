@@ -89,7 +89,7 @@
 			return ris;
 		}
 		else if (type == 2) { //bomba
-			ris = new oggetto(type, posx, globaly, 4, 3, 0, 0, BOMBTXTR, true);
+			ris = new oggetto(type, posx, globaly, 1, 1, 0, 0, BOMBTXTR, true);
 			return ris;
 		}
 		else if (type == 3) { //auto
