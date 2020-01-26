@@ -11,16 +11,16 @@
 			exit(1);
 		livAtt = 1;
 		livMax = 1;
-		liv = generaLivello(); // comprende anche la salvaLivello
+		generaLivello(); // comprende anche la salvaLivello
 	}
 
 	void livello::chiudi()
 	{
-		liv = cancellaLivello();
+		cancellaLivello();
 		fclose(file);
 	}
 
-	listpntr livello::cancellaLivello() { //libera la lista livello
+	void livello::cancellaLivello() { //libera la lista livello e azzera la sua lunghezza
 		while (liv != NULL) {
 			listpntr temp=liv;
 			liv = liv->next;
@@ -28,7 +28,6 @@
 			delete temp;	//cancella la struct lista di oggetti;
 		}
 		livLong=0;
-		return NULL;
 	}
 
 	listpntr livello::livelloSuccessivo(int &lung) { //carica o genera e carica il livelo successivo
@@ -36,13 +35,13 @@
 		if (livAtt > livMax) {
 			livMax = livAtt;
 			cancellaLivello();
-			liv = generaLivello(); //brutta
+			generaLivello(); 
 			lung=livLong;
 			return liv;
 		}
 		else {
 			cancellaLivello();
-			liv = caricaLivello();//brutta
+			caricaLivello();
 			lung = livLong;
 			return liv;
 		}
@@ -55,13 +54,13 @@
 		}
 		else {
 			cancellaLivello();
-			liv = caricaLivello();//brutta
+			caricaLivello();//brutta
 			lung = livLong;
 			return liv;
 		}
 	}
 
-	listpntr livello::caricaLivello() { //legge i livello di numero livAtt
+	void livello::caricaLivello() { //legge i livello di numero livAtt, scrive direttamete su liv
 		rewind(file);
 		int livello, nObj;
 		fscanf(file, "%d=%d_%d:", &livello, &livLong, &nObj);
@@ -72,14 +71,13 @@
 			} while (c != '\n');
 			fscanf(file, "%d=%d_%d:", &livello, &livLong, &nObj);
 		}
-		return objListGenerator(nObj);
+		objListGenerator(nObj);
 	}
 
-	listpntr livello::generaLivello(){  //genera livello con difficolta livMax
-	int nObj = 0;
+	void livello::generaLivello(){  //genera livello con difficolta livMax
+		int nObj = 0;
 		liv = item_creator(nObj, livMax, livLong);
 		livStringGeneator(nObj);
-		return liv;
 	}
 
 	oggetto* livello::objGenerator(int type, int posx, int globaly) { //crea l'oggetto di codice type e ne restituisce il puntatore
@@ -105,7 +103,7 @@
 		}
 	}
 
-	listpntr livello::objListGenerator(int nObj) { //dato ci�che legge nel file, genera la lista di oggetti e la restituisce
+	void livello::objListGenerator(int nObj) { //legge dal file gli oggetti e ne cre una lista in liv
 		listpntr ris = NULL;
 		listpntr punt = NULL;
 		for (int i = 0; i < nObj; i++) {
@@ -126,10 +124,9 @@
 		}
 		fgetc(file); //smalticso la \n
 		liv = ris;
-		return ris;
 	}
 
-	void livello::livStringGeneator(int nObj) { //traduce l'attribuo lista livello in una stringa da stampare in file
+	void livello::livStringGeneator(int nObj) { //traduce l'attribuo liv in una stringa stampata su file
 		fprintf(file, "%d=%d_%d:", livMax, livLong, nObj);
 		listpntr temp = liv;
 		while (temp != NULL) {
@@ -140,9 +137,9 @@
 		fprintf(file, "\n");
 	}
 
-	listpntr livello::getLiv()
+	listpntr livello::getLiv(int  &lung)
 	{
-
+		lung = livLong;
 		return liv; 
 	}
 
@@ -159,37 +156,6 @@
 	int livello::getLivLong()
 	{
 		return livLong;
-	}
-
-	listpntr livello::generaMappa()
-	{
-		int nObj, i = 0;
-		int posx, posy, globy, type;
-		listpntr l1 = NULL;
-		listpntr l2 = NULL;
-		srand(time(NULL));
-		nObj = 50;
-		while (i < nObj)
-		{
-
-			posy = 0;
-			type = (rand() % 3) + 1;
-			posx = (rand() % (50)) + 2;
-			if (type == 2)
-				posx = posx - 3;
-			globy = (rand() % 20);
-			l2 = new lista;
-			l2->val = objGenerator(type, posx, globy);
-			l1 = push(l1, l2);
-			i++;
-		}
-		return l1;
-	}
-
-	listpntr livello::push(listpntr l1, listpntr l2)
-	{
-		l2->next = l1;
-		return l2;
 	}
 
 	listpntr livello::resetLivello(){
