@@ -20,7 +20,7 @@ public:
 
 	listpntr livelloPrecedente(int &lung);
 
-	listpntr getLiv(); //ritorna il puntatore alla lista livello
+	listpntr getLiv(int &lung); //ritorna il puntatore alla lista livello
 
 	int getLivAtt(); //ritorna il livello attualmente caricato
 
@@ -32,21 +32,16 @@ public:
 	
 private:
 
-	listpntr cancellaLivello();
+	void cancellaLivello();
 
-	listpntr caricaLivello(); //legge i livello di numero livAtt
+	void caricaLivello(); //legge i livello di numero livAtt
 
-	listpntr generaLivello(); //genera livello con difficolta livMax
+	void generaLivello(); //genera livello con difficolta livMax
 
-	oggetto* objGenerator(int type, int posx, int globaly); //genera un ogetto a partire dal suo tipo
-
-	listpntr objListGenerator(int nObj); //genera la lista di oggetti a partire dalla stringa letta su file
+	void objListGenerator(int nObj); //genera la lista di oggetti a partire dalla stringa letta su file
 
 	void livStringGeneator(int nObj); //traduce la lista livellogenerata nella stringa a stampare su file
 
-	listpntr generaMappa();
-
-	listpntr push(listpntr l1, listpntr l2);
 };
 
 #endif
