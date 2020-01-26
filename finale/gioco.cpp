@@ -5,17 +5,22 @@
             battery = 100;
             batteryLose = 0.4;
             scoreGain = 0;
-            punteggi = new punteggio;
-            moltGoal = 2;
-            lvl = 1;
+            punteggi = new punteggio;  //in punteggi vengono salvati per ciascun livello il loro goal.
+            moltGoal = 2;              //indica quanti punti ci fornisce un livello
+            lvl = 1;                   
             lvlMax = 0;
+                                    //carico il livello 0
             punteggi->limit = 0;
             punteggi->lvl = 0;
             punteggi->next = NULL;
-            inizializza();
+
+            inizializza();         //setto colori e opzioni di ncurses
             endGame = false;
-            l = new livello();
-            azione = 1;
+            l = new livello();     
+            azione = 1;            //azione = 1 si carica il livello corrente
+                                   //azione = 2 livello successivo
+                                   //azione = 3 livello precedente
+                                   //azione = 4 reset livello  
             limit = 0;
             goal = 0;
         }
@@ -49,14 +54,10 @@
                     m->checkCollision(score, battery, &p1, globy);
                     score = score + scoreGain;
                     battery = battery - batteryLose; 
-                    
                     p1.move(c, col, row);
                     p1.stampa();
-                    //stampa_layout(score, battery, col);
                     stampa_laterale(battery, score);
                     globy++;
-                    //mvprintw(0, 0, "%d", globy);
-                   // men.stampa_menu();
                     refresh();
                 }
                 if(c == 'w' || c == 'a' || c == 's' || c == 'd')
@@ -67,7 +68,6 @@
                     m->checkCollision(score, battery, &p1, globy);
                     p1.move(c, col, row);
                     p1.stampa();
-                    //stampa_layout(score, battery, col);
                     stampa_laterale(battery, score);
                     refresh(); 
                 }
@@ -134,10 +134,11 @@
             int lunghezza;
 
 
+            //new mappa ha bisogno della lista di oggetti, dello score per passare al livello successivo, dello score
+            //sotto il quale si retrocede, e della lunghezza della mappa.
             limit = ricerca_limit();
             if (azione == 1)
             {
-                //lunghezza = l->getLivLong();
                 m1 = new mappa(l->getLiv(lunghezza), (lunghezza * 10) + limit, limit, lunghezza);
             }
             else if(azione == 2)
@@ -156,13 +157,7 @@
                 m1 = new mappa(l->resetLivello(), (lunghezza * 10) + limit, limit, lunghezza);
             }
 
-/*
-            if(lvl % 4 == 0)
-                margineLvl = (2000 / lvl);
-            if(margineLvl < 0)
-                margineLvl  = 0;
-*/
-            goal = (lunghezza * moltGoal); //- (margineLvl);
+            goal = (lunghezza * moltGoal); 
             goal = goal + limit;
             punteggi = push(goal);
             return m1;
@@ -439,9 +434,9 @@
                 dif = 500;
 
             clock_t end;
-            end = clock();
-            modulo = ((double)(end - start) / (double) CLOCKS_PER_SEC) * 10000;
-            if (modulo % (1000 - dif) == 0) 
+            end = clock();                                                       
+            modulo = ((double)(end - start) / (double) CLOCKS_PER_SEC) * 10000; //Calcolo i millisecondi passati dall'inizio del programma
+            if (modulo % (1000 - dif) == 0)                                     //Moltiplico per 10.000 in quanto il valore restituitoci è dell'ordine dei Millisecondi
                 return true;
             else 
                 return false;
@@ -527,6 +522,8 @@
             battery = 100;
             batteryLose = 0.4;
             scoreGain = 0;
+
+            //Pulisco punteggi
             while (punteggi->next != NULL)
             {
                 tmp = punteggi;
@@ -536,6 +533,8 @@
                 tmp->next = NULL;
             }
             delete punteggi;
+            delete l;
+
             punteggi = new punteggio;
             moltGoal = 2;
             lvl = 1;
