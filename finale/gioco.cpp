@@ -46,7 +46,7 @@
                     flag = (flag + 1) % 5;
                     m->move(globy);
                     m->stampa(globy);
-                    m->checkCollision(score, battery, &p1);
+                    m->checkCollision(score, battery, &p1, globy);
                     score = score + scoreGain;
                     battery = battery - batteryLose; 
                     
@@ -64,7 +64,7 @@
                     clear();
                     m->stampa_strada(flag);
                     m->stampa(globy);
-                    m->checkCollision(score, battery, &p1);
+                    m->checkCollision(score, battery, &p1, globy);
                     p1.move(c, col, row);
                     p1.stampa();
                     //stampa_layout(score, battery, col);
@@ -78,10 +78,13 @@
                 }
                 if(check_game_over())
                 {
-                    stampa_game_over();
-                    while(c == 'q');
-                        c = getchar();
-                    azione = 1; 
+                    mvprintw(LINES / 2, COLS - OFFSET_MENU + 2 , "BATTERIA ESAURITA!!!");
+                    mvprintw(LINES / 2 + 1 , COLS - OFFSET_MENU + 2, "PREMI SPAZIO PER CONTINUARE");
+                    refresh();
+                    while(c != ' ')
+                        c = getch();
+                    refresh();
+                    lvl = 0;
                     return;
                 }
                 if(check_goal())
@@ -129,10 +132,7 @@
         {
             mappa *m1;
             int lunghezza;
-            if(lvl == 1)
-                limit = 0;
-            else
-                limit = 0;
+
 
             limit = ricerca_limit();
             if (azione == 1)
@@ -172,17 +172,10 @@
             return battery <= 0;
         }
 
-        void gioco::stampa_game_over()
-        {
-            attron(COLOR_PAIR(3));
-            mvprintw(LINES/2, (COLS - OFFSET_MENU - 6) /2, "YOU DIED");
-            attroff(COLOR_PAIR(3));
-            refresh();
-        }
         void gioco::start_menu()
         {   
             char c = 'a';
-            int sel = 5;
+            int sel = 10;
             int notSel = 6;
             int s1 = sel;
             int s2 = notSel;
@@ -322,11 +315,11 @@
         }
         void gioco::load_level()
         {
+            char c = 'a';
             mappa *m;
             while(!endGame)
             {
                 m = genera_mappa();
-                char c = 'a';
                 modScoreGain();
                 start(m);
                 delete(m);
@@ -352,7 +345,7 @@
                 score = 0;
             else
                 score = ricerca_limit();
-            battery = 100;
+            //battery = 100;
         }
         void gioco::stampa_istruzioni()
         {
@@ -361,7 +354,7 @@
                 attron(COLOR_PAIR(6));
                 mvprintw(0, COLS/2 - 5, "ISTRUZIONI");
                 attroff(COLOR_PAIR(6));
-                mvprintw(2, 4, "Non vi è alcuna fine, raggiungi il massimo livello che riesci!!!");
+                mvprintw(2, 4, "Non vi è alcuna fine, punta al punteggio più alto!!");
                 mvprintw(5, 1, "Raggiungi lo score necessario     ---->\n per passare di livello!!!");
                 mvprintw(8, 1, "Attenzione alla batteria!!!       ---->");
                 mvprintw(11, 1, "Se scenderai sotto un certo punteggio tornerai indietro di livello!!");
@@ -378,11 +371,11 @@
                 mvprintw(15, COLS/2 - 3, "OGGETTI");
                 attroff(COLOR_PAIR(6));
 
-                attron(COLOR_PAIR(2));
+                attron(COLOR_PAIR(4));
                 mvprintw(20, 5, "^^^^^");
                 mvprintw(19, 5, "^^^^^");
                 mvprintw(18, 5, "^^^^^");
-                attroff(COLOR_PAIR(2));
+                attroff(COLOR_PAIR(4));
 
                 
                 mvprintw(18, 20, "<----    Attenzione i fossi tolgono molti punti!!!");
@@ -393,20 +386,25 @@
                 mvprintw(22, 7, "B");
                 attroff(COLOR_PAIR(1));
                 
-                mvprintw(25, 20, "<----    Il ghiaccio ti fa sbandare!!!");
-                attron(COLOR_PAIR(3));
-                mvprintw(24, 6, "///");
-                mvprintw(25, 6, "///");
+                mvprintw(24, 20, "<----    Le bombe eliminano tutti gli ostacoli!!!");
+                attron(COLOR_PAIR(2));
+                mvprintw(24, 7, "@");
+                attroff(COLOR_PAIR(2));
+                
+                mvprintw(27, 20, "<----    Il ghiaccio ti fa sbandare!!!");
+                attron(COLOR_PAIR(5));
                 mvprintw(26, 6, "///");
-                attroff(COLOR_PAIR(3));
+                mvprintw(27, 6, "///");
+                mvprintw(28, 6, "///");
+                attroff(COLOR_PAIR(5));
 
-                mvprintw(28, 20, "<----    Le auto si muovono!!!");
-                attron(COLOR_PAIR(4));
-                mvprintw(28, 6, "o-o");
-                mvprintw(29, 6, "|^|");
-                mvprintw(30, 6, "\\_/");
-                mvprintw(31, 6, "o-o");
-                attroff(COLOR_PAIR(4));
+                mvprintw(31, 20, "<----    Le auto si muovono!!!");
+                attron(COLOR_PAIR(3));
+                mvprintw(30, 6, "o-o");
+                mvprintw(31, 6, "|^|");
+                mvprintw(32, 6, "\\_/");
+                mvprintw(33, 6, "o-o");
+                attroff(COLOR_PAIR(3));
 
                 //Nome del gioco
 
@@ -484,19 +482,27 @@
         void gioco::modScoreGain()
         {
                 if(lvl < 5)
-                    scoreGain = 12;
+                    scoreGain = 15;
                 else if(lvl < 10)
                 {
-                    scoreGain = 10;
+                    scoreGain = 12;
                 }
                 else if(lvl < 15)
                 {
-                    scoreGain = 5;
+                    scoreGain = 10;
                 }
                 else if(lvl <= 20)
                 {
-                    scoreGain = 2;
+                    scoreGain = 8;
                 }     
+                else if(lvl <= 25)
+                {
+                    scoreGain = 4;
+                }     
+                else if(lvl <= 30)
+                {
+                    scoreGain = 2;
+                }   
 
         }
 
@@ -556,13 +562,14 @@
             noecho();  //Impostazione per evitare la stampa di ciò che è premuto sulla tastiera
             curs_set(0);
             init_pair(1, COLOR_GREEN, COLOR_BLACK);
-            init_pair(2, COLOR_RED, COLOR_BLACK);
-            init_pair(3, COLOR_CYAN, COLOR_BLUE);
-            init_pair(4, COLOR_MAGENTA, COLOR_BLACK);
-            init_pair(5, COLOR_BLACK, COLOR_WHITE);
+            init_pair(2, COLOR_YELLOW, COLOR_BLACK);
+            init_pair(3, COLOR_MAGENTA, COLOR_BLACK);
+            init_pair(4, COLOR_RED, COLOR_BLACK);
+            init_pair(5, COLOR_CYAN, COLOR_BLUE);
             init_pair(6, COLOR_YELLOW, COLOR_BLACK);
             init_pair(7, COLOR_GREEN, COLOR_GREEN);
             init_pair(8, COLOR_YELLOW, COLOR_YELLOW);
             init_pair(9, COLOR_RED, COLOR_RED);
+            init_pair(10, COLOR_BLACK, COLOR_WHITE);
             //bkgd(COLOR_PAIR(1));
         }

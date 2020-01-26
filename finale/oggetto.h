@@ -51,6 +51,16 @@ const char ICETXTR[10][10] = {  "///      ",
 								"         ", 
 								"         ", 
 								"         " };
+const char BOMBTXTR[10][10] = { "@        ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         ", 
+								"         " };
 
 class oggetto {
 protected:
@@ -69,7 +79,7 @@ public:
 
 	void stampa();
 
-	void effect(int& score, double& battery, player *p);
+	bool effect(int& score, double& battery, player *p);
 
 	void abilita();
 

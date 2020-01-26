@@ -30,7 +30,6 @@ class gioco
         gioco();
         void start(mappa *m);
         mappa *genera_mappa();
-        void stampa_game_over();
         void start_menu();
         void stampa_laterale(int energy, int score);
         void load_level();
@@ -46,4 +45,4 @@ class gioco
         bool ref(clock_t start);
         punteggio *push(int val);
         int ricerca_limit();
-};
+};  
