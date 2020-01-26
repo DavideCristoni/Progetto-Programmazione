@@ -137,8 +137,8 @@
             limit = ricerca_limit();
             if (azione == 1)
             {
-                lunghezza = l->getLivLong();
-                m1 = new mappa(l->getLiv(), (lunghezza * 10) + limit, limit, lunghezza);
+                //lunghezza = l->getLivLong();
+                m1 = new mappa(l->getLiv(lunghezza), (lunghezza * 10) + limit, limit, lunghezza);
             }
             else if(azione == 2)
             {
