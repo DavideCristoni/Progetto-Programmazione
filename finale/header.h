@@ -1,4 +1,3 @@
-#include <unistd.h>
 #include <ncurses.h>
 #include <time.h>
 #include <cstring>
