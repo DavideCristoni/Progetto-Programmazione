@@ -14,33 +14,33 @@ protected:
 public:
 	livello();
 
-	void chiudi(); //chiude il file e libera la lista degli oggetti di un livello
+	void chiudi(); //libera la memoria occupata dalla lista di oggetti e chiude il file
 
-	listpntr livelloSuccessivo(int &lung);
+	listpntr livelloSuccessivo(int &lung); //ritorna il livello successivo legendolo da file o generandolo se necessario
 
-	listpntr livelloPrecedente(int &lung);
+	listpntr livelloPrecedente(int &lung); //ritorna il livello precedente leggendolo da file, in caso di lettura del livello ritorna puntatore nullo
 
-	listpntr getLiv(int &lung); //ritorna il puntatore alla lista livello
+	listpntr getLiv(int &lung); //ritorna il puntatore alla lista livello e la sua lunghezza tramite parametro
 
-	int getLivAtt(); //ritorna il livello attualmente caricato
+	int getLivAtt(); //ritorna il umero del livello attualmente caricato
 
-	int getLivMax(); //ritorna il livello massimo generato
+	int getLivMax(); //ritorna il il numero del livello massimo generato
 
 	int getLivLong(); //ritorna la lunghezza del livello
 
-	listpntr resetLivello();//resetta lo stato dei vari oggetti
+	listpntr resetLivello(); //resetta lo stato dei vari oggetti
 	
 private:
 
-	void cancellaLivello();
+	void cancellaLivello(); //libera la memoria occupata dalla lista contenente gli oggetti
 
-	void caricaLivello(); //legge i livello di numero livAtt
+	void caricaLivello(); //legge il livello di numero livAtt
 
 	void generaLivello(); //genera livello con difficolta livMax
 
 	void objListGenerator(int nObj); //genera la lista di oggetti a partire dalla stringa letta su file
 
-	void livStringGeneator(int nObj); //traduce la lista livellogenerata nella stringa a stampare su file
+	void livStringGeneator(int nObj); //traduce la lista liv nella stringa da stampare su file
 
 };
 

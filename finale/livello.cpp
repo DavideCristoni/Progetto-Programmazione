@@ -4,8 +4,6 @@
 #include <ncurses.h>
 #include <time.h>
 
-//implementare il codice di gledis
-
 	livello::livello() {
 		file = fopen(nomefile, "w+");
 		if (file == NULL)
@@ -138,8 +136,8 @@
 
 	listpntr livello::resetLivello(){
 		listpntr temp = liv;
-		while(temp!=NULL){
-			temp->val->reset();
+		while(temp != NULL){
+			temp->val->reset(); //resetto lo stato degli oggetti
 			temp = temp->next;
 		}
 		return liv;

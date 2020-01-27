@@ -78,7 +78,7 @@
                 }
                 if(check_game_over())
                 {
-                    mvprintw(LINES / 2, COLS - OFFSET_MENU + 2 , "BATTERIA ESAURITA!!!");
+                    mvprintw(LINES / 2, COLS - OFFSET_MENU + 6 , "BATTERIA ESAURITA!!!");
                     mvprintw(LINES / 2 + 1 , COLS - OFFSET_MENU + 2, "PREMI SPAZIO PER CONTINUARE");
                     refresh();
                     while(c != ' ')
@@ -89,7 +89,7 @@
                 }
                 if(check_goal())
                 {
-                    mvprintw(LINES / 2, COLS - OFFSET_MENU + 2 , "LIVELLO COMPLETATO");
+                    mvprintw(LINES / 2, COLS - OFFSET_MENU + 6 , "LIVELLO COMPLETATO");
                     mvprintw(LINES / 2 + 1 , COLS - OFFSET_MENU + 2, "PREMI SPAZIO PER CONTINUARE");
                     while(c != ' ')
                     {
@@ -101,7 +101,7 @@
                 }
                 if(check_retrocedi())
                 {
-                    mvprintw(LINES / 2, COLS - OFFSET_MENU + 5 , "LIVELLO PERSO");
+                    mvprintw(LINES / 2, COLS - OFFSET_MENU + 9 , "LIVELLO PERSO");
                     mvprintw(LINES / 2 + 1 , COLS - OFFSET_MENU + 2, "PREMI SPAZIO PER CONTINUARE");
                     while(c != ' ')
                     {
@@ -505,8 +505,8 @@
         {
             char c = 'a';
             clear();
-            mvprintw(LINES/2 - 6, COLS/2 , "PAUSA");
-            mvprintw(LINES/2 - 4, COLS/2 - 13, "Premi spazio per tornare al gioco");
+            mvprintw(LINES/2 - 6, COLS/2 - 2, "PAUSA");
+            mvprintw(LINES/2 - 4, COLS/2 - 16, "Premi spazio per tornare al gioco");
             refresh();
             while(c != ' ')
             {

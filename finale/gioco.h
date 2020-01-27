@@ -1,3 +1,7 @@
+#ifndef GIOCO_H
+
+#define GIOCO_H
+
 #include "mappa.h"
 
 struct punteggio
@@ -46,3 +50,5 @@ class gioco
         punteggio *push(int val);
         int ricerca_limit();
 };  
+
+#endif

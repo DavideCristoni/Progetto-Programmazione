@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include "libreria.h"
 #include <iostream>
 #include <stdlib.h>
@@ -31,12 +30,4 @@ oggetto* objGenerator(int type, int posx, int globaly) {
 		else {
 			return NULL;
 		}
-	}
-
-void stampaLivello(listpntr liv) {
-	listpntr temp = liv;
-	while (temp != NULL) {
-		temp->val->stampa();
-		temp = temp->next;
-	}
 }

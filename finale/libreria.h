@@ -5,6 +5,4 @@
 
 oggetto* objGenerator(int type, int posx, int globaly);
 
-void stampaLivello(listpntr liv);
-
 #endif
