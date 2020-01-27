@@ -349,7 +349,7 @@
                 attron(COLOR_PAIR(6));
                 mvprintw(0, COLS/2 - 5, "ISTRUZIONI");
                 attroff(COLOR_PAIR(6));
-                mvprintw(2, 4, "Non vi è alcuna fine, punta al punteggio più alto!!");
+                mvprintw(2, 6, "Non vi è alcuna fine, punta al punteggio più alto!!");
                 mvprintw(5, 1, "Raggiungi lo score necessario     ---->\n per passare di livello!!!");
                 mvprintw(8, 1, "Attenzione alla batteria!!!       ---->");
                 mvprintw(11, 1, "Se scenderai sotto un certo punteggio tornerai indietro di livello!!");
