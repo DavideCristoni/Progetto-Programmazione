@@ -1,8 +1,5 @@
 #include "livello.h"
 #include "levelgenerator.h"
-#include "libreria.h"
-#include <ncurses.h>
-#include <time.h>
 
 	livello::livello() {
 		file = fopen(nomefile, "w+");
