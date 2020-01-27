@@ -38,7 +38,7 @@
            // menu men = menu();
 
             getmaxyx(stdscr, row, col);
-            player p1  =  player(10, 20);
+            player p1  =  player((COLS - OFFSET_MENU)/2 - 1, LINES - 5);
 
             while(c != 'q')
             {
