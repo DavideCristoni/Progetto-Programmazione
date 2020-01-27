@@ -17,7 +17,7 @@ const char BATTERYTXTR[10][10] = {  "B        ",
 									"         ", 
 									"         ", };
 
-const int BUCA = 500;
+const int BUCA = 400;
 const char BUCATXTR[10][10] = { "^^^^     ", 
 								"^^^^     ", 
 								"^^^^     ", 
@@ -29,7 +29,7 @@ const char BUCATXTR[10][10] = { "^^^^     ",
 								"         ", 
 								"         " };
 
-const int AUTO = 300;
+const int AUTO = 250;
 const char AUTOTXTR[10][10] = { "o-o      ", 
 								"\\_/      ", 
 								"|^|      ", 
