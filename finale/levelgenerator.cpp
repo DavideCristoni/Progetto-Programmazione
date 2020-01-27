@@ -16,8 +16,8 @@ listpntr item_creator(int &n_obj, int level, int &lev_lenght)
 	srand(time(NULL));
 	//Numero di corsie larghe 4 caratteri l'una (come la macchina)
 	int ncas = (COLS - OFFSET_MENU - 4) / 4;
-	//vettore che serve per dei controlli che devo ancora implementare
-	int flag[ncas];
+	//vettore che serve per dei controlli che devo ancora implementare (false=nessuna minaccia/true=minaccia)
+	bool flag[ncas];
 	//variabile per far s� che ci sia almeno una corsia vuota
 	int last;
 	last = rand() % ncas;
@@ -25,7 +25,7 @@ listpntr item_creator(int &n_obj, int level, int &lev_lenght)
 	{
 		if(last != k)
 		{
-			flag[k] = 1 ;
+			flag[k] = true ;
 		}
 	}
 	//probabilit� batterie e ostacoli
@@ -44,14 +44,14 @@ listpntr item_creator(int &n_obj, int level, int &lev_lenght)
 		{
 			
 			//BATTERIE (1x1)
-			//calcolo della probabilit� di generarsi della batteria (30%)
+			//calcolo della probabilit� di generarsi della batteria
 			if (rand() % 101 >= per_bat)
 			{
 				//i indica la corsia (partendo da 0) quindi moltiplicandola per 4 e sommando 2 abbiamo il carattere esatto della sua x (il +1 � per far s� che la batteria sia pi� centrale)
 				l2 = new lista;
 				l2->val = objGenerator(1, (i*4+2+1), j);
 				l1 = push(l1, l2);
-				flag[i] = 0;
+				flag[i] = false;
 				n_obj++;
 			}
             else if(rand()%501>=500)
@@ -59,7 +59,7 @@ listpntr item_creator(int &n_obj, int level, int &lev_lenght)
                 l2 = new lista;
                 l2->val = objGenerator(2, (i*4+2), j);
 				l1 = push(l1, l2);
-				flag[i] = 0;
+				flag[i] = false;
 				n_obj++;
 			}
         
@@ -76,7 +76,7 @@ listpntr item_creator(int &n_obj, int level, int &lev_lenght)
 						l2 = new lista;
 						l2->val = objGenerator((rand() % 2 + 4), (i*4+2), j);
 						l1 = push(l1, l2);
-						flag[i] = 1;
+						flag[i] = true;
 						n_obj++;
 					}
                     else
@@ -90,13 +90,13 @@ listpntr item_creator(int &n_obj, int level, int &lev_lenght)
 							    l4 = new lista;
 						   		l4->val = objGenerator(3, (i*4+2), j);
 							    l3 = push(l3, l4);
-		    					flag[i] = 1;
+		    					flag[i] = true;
 			    				n_obj++;
 								cont_mac++;
 				    		}
-                        	else flag[i] = 0;
+                        	else flag[i] = false;
 						}
-						else flag[i] = 0;
+						else flag[i] = false;
                     }
 				}
 			}
@@ -108,9 +108,9 @@ listpntr item_creator(int &n_obj, int level, int &lev_lenght)
 		if(last!= 4 && last != 0)
 		{
 			
-			if(flag[last + 1] == 0)
+			if(flag[last + 1] == false)
 			{
-				if(flag[last - 1] == 0)
+				if(flag[last - 1] == false)
 				{
 					if(rand() % 3 == 1) last = last + 1;
 					else if(rand() % 3 == 2) last = last - 1;
@@ -123,14 +123,14 @@ listpntr item_creator(int &n_obj, int level, int &lev_lenght)
 		}
 		else if(last == 4)
 		{
-			if(flag[last - 1] == 0)
+			if(flag[last - 1] == false)
 			{
 				if(rand() % 2 == 0) last = last - 1;
 			}
 		}
 		else
 		{
-			if(flag[last + 1] == 0)
+			if(flag[last + 1] == false)
 			{
 				if(rand() % 2 == 0) last = last + 1;
 			}
