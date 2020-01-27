@@ -426,12 +426,12 @@
         {
             long long unsigned int modulo;
             int dif = 0;
-            if (lvl > 10)
+            if (lvl >= 10)
                 dif = 200;
             if(lvl > 15)
-                dif = 400;
+                dif = 250;
             if(lvl > 20)
-                dif = 500;
+                dif = 300;
 
             clock_t end;
             end = clock();                                                       
