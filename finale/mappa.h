@@ -8,8 +8,6 @@
 class mappa
 {
     protected:
-        //batterie *listaB = NULL;
-        //fossi *listaF = NULL;
         int goal;
         int limit;
         int lunghezza;

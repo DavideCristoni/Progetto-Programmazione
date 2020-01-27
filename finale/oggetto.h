@@ -106,4 +106,6 @@ struct lista {
 
 typedef lista* listpntr;
 
+oggetto* objGenerator(int type, int posx, int globaly);
+
 #endif

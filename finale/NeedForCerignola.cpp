@@ -1,5 +1,4 @@
 #include "header.h"
-#include "libreria.h"
 #include "livello.h"
 #include "gioco.h"
 

@@ -1,7 +1,6 @@
 #include <time.h>
 #include <stdlib.h>
 #include "levelgenerator.h"
-#include "libreria.h"
 #include "player.h"
 #include "oggetto.h"
 
