@@ -113,9 +113,9 @@
                 }
                 if(m->check_ricarica(globy))
                 {
-                    mvprintw(LINES / 2, COLS - OFFSET_MENU + 0 , "NON SEI RIUSCITO A");
-                    mvprintw(LINES / 2 + 1, COLS - OFFSET_MENU + 0 , "RAGGIUNGERE LO SCORE!!!");
-                    mvprintw(LINES / 2 + 2 , COLS - OFFSET_MENU + 0, "PREMI SPAZIO PER CONTINUARE");
+                    mvprintw(LINES / 2, COLS - OFFSET_MENU + 5 , "NON SEI RIUSCITO A");
+                    mvprintw(LINES / 2 + 1, COLS - OFFSET_MENU + 3 , "RAGGIUNGERE LO SCORE!!!");
+                    mvprintw(LINES / 2 + 2 , COLS - OFFSET_MENU + 1, "PREMI SPAZIO PER CONTINUARE");
                     while(c != ' ')
                     {
                         c = getch();
